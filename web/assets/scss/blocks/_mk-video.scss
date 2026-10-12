@@ -1,0 +1,92 @@
+// =============================================================================
+// Blok: Video (mk/video)
+// Gecentreerde titel, brede thumbnail met witte play-knop. Klik opent de
+// Vimeo-video in de popup (components/_video-modal.scss + js/video-modal.js).
+// =============================================================================
+
+.mk-video {
+    @include section-spacing;
+
+    &__container {
+        @include container(1100px);
+    }
+
+    &__titel {
+        margin-bottom: $spacing-m;
+        text-align: center;
+    }
+
+    &__speler {
+        position: relative;
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+        border-radius: $custom-radius;
+        background-color: $color-dark-green;
+        cursor: pointer;
+
+        @include mq(md) {
+            aspect-ratio: 595 / 286; // breed, zoals het ontwerp
+        }
+
+        // Lichte donkere laag voor contrast met de play-knop
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: rgba($color-black, 0.15);
+            transition: background-color $custom-transition;
+        }
+
+        &:hover::after,
+        &:focus-visible::after {
+            background-color: rgba($color-black, 0.3);
+        }
+    }
+
+    &__poster {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    &__speler:hover &__poster {
+        transform: scale(1.03);
+    }
+
+    // Witte ronde knop met donkere driehoek
+    &__play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: clamp(4rem, 3.472rem + 2.254vw, 5.5rem); // 64 -> 88px
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: $color-white;
+        box-shadow: 0 8px 24px rgba($color-black, 0.25);
+        transform: translate(-50%, -50%);
+        transition: transform $custom-transition;
+
+        &::before {
+            content: "";
+            margin-left: 12%;
+            border-top: 0.6em solid transparent;
+            border-bottom: 0.6em solid transparent;
+            border-left: 1em solid $color-black;
+            font-size: clamp(1rem, 0.868rem + 0.5634vw, 1.375rem);
+        }
+    }
+
+    &__speler:hover &__play,
+    &__speler:focus-visible &__play {
+        transform: translate(-50%, -50%) scale(1.08);
+    }
+}

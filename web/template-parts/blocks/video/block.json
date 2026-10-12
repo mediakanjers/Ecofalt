@@ -1,0 +1,19 @@
+{
+  "name": "mk/video",
+  "title": "Video",
+  "description": "Titel met een videothumbnail; klik op play opent de Vimeo-video in een popup",
+  "category": "mediakanjers",
+  "icon": "video-alt3",
+  "keywords": ["video", "vimeo", "bedrijfsvideo", "film"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}

@@ -1,0 +1,121 @@
+// =============================================================================
+// Blok: Verhaal (mk/verhaal)
+// Wit kaartvlak (±860 breed) met titel, tekst, brede foto, vervolgtekst en
+// onderaan een quote: portret links, groen aanhalingsteken + quote + handtekening rechts.
+// =============================================================================
+
+.mk-verhaal {
+    @include section-spacing;
+    @include container(860px);
+
+    &__kaart {
+        padding: clamp(1.5rem, 0.928rem + 2.441vw, 3rem); // 24 -> 48px
+        border-radius: $custom-radius;
+        background-color: $color-white;
+    }
+
+    &__titel {
+        margin-bottom: $spacing-m;
+    }
+
+    &__tekst {
+        line-height: 1.7;
+    }
+
+    &__afbeelding {
+        margin: $spacing-l 0;
+
+        img {
+            width: 100%;
+            aspect-ratio: 766 / 400;
+            border-radius: $custom-radius-image;
+            object-fit: cover;
+        }
+    }
+
+    // QUOTE //
+    &__quote {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-l;
+        margin: $spacing-xl 0 0;
+    }
+
+    &__quote--met-foto {
+        @include mq(sm) {
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1.5rem, 0.5rem + 3vw, 3.5rem);
+            align-items: start;
+        }
+    }
+
+    &__quote-foto img {
+        width: 100%;
+        aspect-ratio: 383 / 473;
+        border-radius: $custom-radius-image;
+        object-fit: cover;
+    }
+
+    &__quote-inhoud {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        @include mq(sm) {
+            padding-top: $spacing-s;
+        }
+    }
+
+    &__quote-tekst {
+        margin: 0;
+        font-family: $font-family-heading;
+        font-size: clamp(1.1875rem, 1.1215rem + 0.2817vw, 1.375rem); // 19 -> 22px
+        font-weight: 700;
+        line-height: 1.4;
+
+        // Groen aanhalingsteken („) boven de quote
+        &::before {
+            content: "\201E";
+            display: block;
+            height: 0.9em;
+            margin-bottom: 0.2em;
+            color: $color-primary;
+            font-size: 2.6em;
+            line-height: 0.5;
+        }
+    }
+
+    &__accent {
+        color: $color-primary;
+    }
+
+    &__afzender {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-top: $spacing-xl;
+
+        @include mq(sm) {
+            margin-top: auto;
+            padding-top: $spacing-xl;
+        }
+    }
+
+    &__handtekening {
+        width: auto;
+        max-width: 250px;
+        height: 48px;
+        object-fit: contain;
+        object-position: left;
+    }
+
+    &__naam {
+        font-family: $font-family-heading;
+        font-size: $h5-font-size;
+        font-weight: 700;
+    }
+
+    &__functie {
+        font-size: $font-size-normal;
+    }
+}

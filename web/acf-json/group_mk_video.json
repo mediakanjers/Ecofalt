@@ -1,0 +1,53 @@
+{
+    "key": "group_mk_video",
+    "title": "Blok: Video",
+    "fields": [
+        {
+            "key": "field_mk_video_titel",
+            "label": "Titel",
+            "name": "titel",
+            "type": "text",
+            "placeholder": "Bekijk onze bedrijfsvideo"
+        },
+        {
+            "key": "field_mk_video_vimeo",
+            "label": "Vimeo-video",
+            "name": "vimeo",
+            "type": "url",
+            "required": 1,
+            "placeholder": "https://vimeo.com/...",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_video_poster",
+            "label": "Thumbnail (optioneel)",
+            "name": "poster",
+            "type": "image",
+            "instructions": "Leeg = de thumbnail van Vimeo.",
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": "jpg,jpeg,png,webp",
+            "wrapper": { "width": "50" }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/video"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Video-blok (mk/video)",
+    "show_in_rest": 0,
+    "modified": 1791810734
+}

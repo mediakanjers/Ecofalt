@@ -88,6 +88,19 @@
         return add_query_arg(array_merge($base, ['dnt' => 1], $params), 'https://player.vimeo.com/video/' . $video['id']);
     }
 
+    // Thumbnail van een Vimeo-video via oEmbed (een week gecachet, bij mislukken een uur)
+    function mk_vimeo_thumbnail($url) {
+        if (!$url) return '';
+        $key    = 'mk_vimeo_thumb_' . md5($url);
+        $cached = get_transient($key);
+        if ($cached !== false) return $cached;
+
+        $data  = _wp_oembed_get_object()->get_data($url, ['width' => 1280]);
+        $thumb = ($data && !empty($data->thumbnail_url)) ? $data->thumbnail_url : '';
+        set_transient($key, $thumb, $thumb ? WEEK_IN_SECONDS : HOUR_IN_SECONDS);
+        return $thumb;
+    }
+
     // ACF: keuzelijst "Formulier" (o.a. Contact-blok) vullen met de formulieren uit Gravity Forms
     add_filter('acf/load_field/key=field_mk_contact_cta_formulier', function($field) {
         $field['choices'] = [];

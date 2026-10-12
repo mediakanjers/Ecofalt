@@ -1,0 +1,19 @@
+{
+  "name": "mk/verhaal",
+  "title": "Verhaal",
+  "description": "Wit kaartvlak met titel, tekst, foto, vervolgtekst en een quote met portret en handtekening",
+  "category": "mediakanjers",
+  "icon": "format-quote",
+  "keywords": ["verhaal", "over ons", "quote", "citaat", "tekst"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}
