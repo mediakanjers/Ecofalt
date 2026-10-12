@@ -1,0 +1,121 @@
+// =============================================================================
+// Header — mobiel: logo + hamburger. Vanaf lg: logo links, topbalk (mail/telefoon)
+// en hoofdmenu rechts.
+// =============================================================================
+
+.mk-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: $color-white;
+    box-shadow: $custom-shadow-header;
+
+    // Admin bar (ingelogd) — onder 600px scrolt die mee, dus geen offset
+    .admin-bar & {
+        @media screen and (min-width: 601px) {
+            top: 46px;
+        }
+
+        @media screen and (min-width: 783px) {
+            top: 32px;
+        }
+    }
+
+    &__container {
+        @include container;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "logo toggle";
+        align-items: center;
+        column-gap: $spacing-l;
+        padding-block: $spacing-s;
+
+        @include mq(lg) {
+            grid-template-columns: auto 1fr;
+            grid-template-areas:
+                "logo top"
+                "logo nav";
+            row-gap: $spacing-xs;
+            padding-block: 12px 18px;
+        }
+    }
+
+    &__logo {
+        grid-area: logo;
+        display: block;
+        width: clamp(8.125rem, 6.584rem + 6.573vw, 12.5rem);
+
+        img,
+        span {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        span {
+            font-family: $font-family-heading;
+            font-size: $h3-font-size;
+            font-weight: 700;
+            color: $color-primary;
+        }
+    }
+
+    &__top {
+        grid-area: top;
+        display: none;
+        justify-self: end;
+
+        @include mq(lg) {
+            display: block;
+        }
+
+        .mk-contact-links {
+            font-size: $font-size-small;
+        }
+    }
+
+    .mk-nav-main {
+        grid-area: nav;
+        display: none;
+        justify-self: end;
+
+        @include mq(lg) {
+            display: block;
+        }
+    }
+
+    // Hamburger
+    &__toggle {
+        grid-area: toggle;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        width: 44px;
+        height: 44px;
+        margin-right: -10px;
+        padding: 10px;
+        border: 0;
+        background: none;
+        color: $color-black;
+        cursor: pointer;
+
+        @include mq(lg) {
+            display: none;
+        }
+    }
+
+    &__toggle-line {
+        display: block;
+        width: 100%;
+        height: 2px;
+        border-radius: 2px;
+        background-color: currentColor;
+        transition: background-color $custom-transition;
+    }
+
+    &__toggle:hover &__toggle-line {
+        background-color: $color-primary;
+    }
+}

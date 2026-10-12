@@ -1,0 +1,40 @@
+// =============================================================================
+// Contactlinks (mail / telefoon met icoon) — header topbalk, mobiel menu, footer
+// =============================================================================
+
+.mk-contact-links {
+    @include list-reset;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+
+    .mk-mobile-menu & {
+        flex-direction: column;
+    }
+}
+
+.mk-contact-links__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    transition: color $custom-transition;
+
+    svg {
+        width: 1em;
+        height: 1em;
+        flex-shrink: 0;
+        color: $color-primary;
+    }
+
+    &:hover,
+    &:focus-visible {
+        color: $color-primary;
+    }
+
+    .mk-on-dark &:hover,
+    .mk-on-dark &:focus-visible {
+        color: $color-white;
+        opacity: 0.75;
+    }
+}

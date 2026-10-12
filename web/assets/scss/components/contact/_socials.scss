@@ -1,0 +1,28 @@
+// =============================================================================
+// Social media iconen (Mediakanjers > Website instellingen > Socials)
+// =============================================================================
+
+.mk-socials {
+    @include list-reset;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-l;
+
+    &__link {
+        display: flex;
+        color: inherit;
+        transition: opacity $custom-transition, transform $custom-transition;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        &:hover,
+        &:focus-visible {
+            opacity: 0.75;
+            transform: translateY(-2px);
+        }
+    }
+}

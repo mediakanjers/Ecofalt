@@ -1,0 +1,35 @@
+/* ===== THEME ===== */
+@import "theme/_theme-vars.scss";
+@import "theme/_mixins.scss";
+@import "theme/_icons.scss";
+@import "theme/_tokens.scss";
+@import "theme/_theme.scss";
+
+/* ===== LAYOUT ===== */
+@import "layout/_guttenberg.scss";
+@import "layout/_header.scss";
+@import "layout/_footer.scss";
+
+
+/* ===== TEMPLATE PARTS ===== */
+    @import "template-parts/_404.scss";
+
+/* ===== COMPONENTS ===== */
+    /* === MENU === */
+    @import "components/menu/_header-menu.scss";
+    @import "components/menu/_footer-menu.scss";
+    @import "components/menu/_mobile-menu.scss";
+    /* === CONTACT === */
+    @import "components/contact/_contact-info.scss";
+    @import "components/contact/_opening-hours.scss";
+    @import "components/contact/_socials.scss";
+    /* === FORM === */
+    @import "components/form/_form.scss";
+    /* === BUTTON === */
+    @import "components/_button.scss";
+
+/* ===== BLOCKS ===== */
+    @import "blocks/_mk-loop.scss";
+    @import "blocks/_image-slider.scss";
+    @import "blocks/_mk-breadcrumbs.scss";
+    @import "blocks/_mk-kolommen.scss";

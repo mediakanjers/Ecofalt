@@ -1,0 +1,75 @@
+// =============================================================================
+// Footer — groen vlak, witte tekst. Mobiel gestapeld, sm 2 kolommen, lg 5 kolommen.
+// =============================================================================
+
+.mk-footer {
+    padding-block: $spacing-xl;
+    background-color: $color-green;
+    font-size: $font-size-small;
+    line-height: 1.7;
+
+    &__container {
+        @include container;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-l;
+
+        @include mq(sm) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include mq(lg) {
+            display: flex;
+            justify-content: space-between;
+            gap: $spacing-l;
+        }
+    }
+
+    &__title {
+        margin-bottom: 4px;
+        font-family: $font-family-body;
+        font-size: $font-size-small;
+        font-weight: 600;
+        line-height: 1.7;
+    }
+
+    &__address {
+        font-style: normal;
+    }
+
+    &__menu {
+        @include list-reset;
+
+        a {
+            transition: opacity $custom-transition;
+
+            &:hover,
+            &:focus-visible {
+                opacity: 0.75;
+            }
+        }
+    }
+
+    // E-mail staat in het ontwerp op de hoogte van de eerste regel, onder de titels
+    &__col--email {
+        @include mq(lg) {
+            padding-top: 1.7em;
+        }
+
+        .mk-contact-links__item svg {
+            color: $color-dark-green;
+        }
+    }
+
+    &__col--socials {
+        @include mq(lg) {
+            align-self: center;
+        }
+    }
+
+    &__col--voorwaarden {
+        @include mq(lg) {
+            text-align: right;
+        }
+    }
+}

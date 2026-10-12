@@ -1,0 +1,74 @@
+// =============================================================================
+// Hoofdmenu desktop (vanaf lg) — actief item groen en dikker, submenu als dropdown
+// =============================================================================
+
+.mk-nav-main__menu {
+    @include list-reset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    column-gap: clamp(1rem, 0.25rem + 1.2vw, 2rem);
+
+    > li {
+        position: relative;
+    }
+
+    a {
+        display: block;
+        padding-block: 4px;
+        color: $color-black;
+        font-size: $font-size-normal;
+        transition: color $custom-transition;
+
+        &:hover,
+        &:focus-visible {
+            color: $color-primary;
+        }
+    }
+
+    .current-menu-item > a,
+    .current-menu-ancestor > a,
+    .current-page-ancestor > a {
+        color: $color-primary;
+        font-weight: 600;
+    }
+
+    .menu-item-has-children > a {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        &::after {
+            @include icon-mask($icon-chevron-down, 0.9em);
+        }
+    }
+
+    // Dropdown
+    .sub-menu {
+        @include list-reset;
+        position: absolute;
+        top: 100%;
+        left: -20px;
+        z-index: 10;
+        min-width: 240px;
+        padding: 10px 20px;
+        border-radius: $custom-radius;
+        background-color: $color-white;
+        box-shadow: $custom-shadow-header;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(6px);
+        transition: opacity $custom-transition, transform $custom-transition, visibility $custom-transition;
+
+        a {
+            padding-block: 6px;
+        }
+    }
+
+    li:hover > .sub-menu,
+    li:focus-within > .sub-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
