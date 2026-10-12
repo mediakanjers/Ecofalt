@@ -127,3 +127,65 @@
         text-align: center;
     }
 }
+
+// =============================================================================
+// Variant "Licht" — paginakop zonder band (bijv. bovenaan de contactpagina):
+// kruimelpad, h1 en tekst links, formulier + foto over de contentbreedte (1326)
+// =============================================================================
+
+.mk-contact-cta--licht {
+    // Witruimte onderaan binnen het blok: geldt ook als laatste blok boven de footer
+    padding-block: $spacing-l var(--mk-section-spacing);
+    background-color: transparent;
+
+    .mk-contact-cta__container {
+        @include container(1326px);
+    }
+
+    .mk-contact-cta__intro {
+        max-width: none;
+        margin-inline: 0;
+        text-align: left;
+    }
+
+    .mk-contact-cta__tekst {
+        max-width: 920px;
+        margin-inline: 0;
+    }
+
+    .mk-breadcrumbs {
+        flex-wrap: wrap;
+        width: auto;
+        max-width: none;
+        margin: 0 0 $spacing-s;
+    }
+
+    // Witte velden op de grijze achtergrond (zoals de standaard formulieren)
+    .gform_wrapper .gfield {
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="url"],
+        textarea,
+        select {
+            background-color: $color-white;
+        }
+    }
+
+    .gform_wrapper {
+        .gfield_validation_message,
+        .gform_validation_errors .gform_submission_error {
+            color: $custom-color-error;
+        }
+    }
+
+    .gform_confirmation_message {
+        color: $color-primary;
+        text-align: left;
+    }
+
+    .mk-contact-cta__melding {
+        border-color: $color-light-grey;
+    }
+}

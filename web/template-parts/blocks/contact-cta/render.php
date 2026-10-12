@@ -4,8 +4,13 @@
     $formulier   = (int) get_field('formulier');
     $afbeelding  = get_field('afbeelding');
     $achtergrond = get_field('achtergrond');
+    $stijl       = get_field('stijl') === 'licht' ? 'licht' : 'groen';
+    $licht       = $stijl === 'licht';
 
-    $classes = ['mk-contact-cta', 'mk-on-dark'];
+    // Groen: band met gecentreerde tekst. Licht: paginakop (kruimelpad + h1), zonder band
+    $classes = ['mk-contact-cta', 'mk-contact-cta--' . $stijl];
+    if (!$licht) $classes[] = 'mk-on-dark';
+    if ($licht) $achtergrond = null;
     if ($afbeelding) $classes[] = 'mk-contact-cta--met-foto';
     if (!empty($block['className'])) $classes[] = $block['className'];
 
@@ -22,8 +27,10 @@
     <div class="mk-contact-cta__container">
         <?php if ($titel || $tekst): ?>
             <div class="mk-contact-cta__intro">
+                <?php if ($licht && function_exists('mk_breadcrumbs')) mk_breadcrumbs($is_preview); ?>
                 <?php if ($titel): ?>
-                    <h2 class="mk-contact-cta__titel"><?php echo esc_html($titel); ?></h2>
+                    <?php $kop = $licht ? 'h1' : 'h2'; ?>
+                    <<?php echo $kop; ?> class="mk-contact-cta__titel mk-h2"><?php echo esc_html($titel); ?></<?php echo $kop; ?>>
                 <?php endif; ?>
                 <?php if ($tekst): ?>
                     <p class="mk-contact-cta__tekst"><?php echo nl2br(esc_html($tekst)); ?></p>

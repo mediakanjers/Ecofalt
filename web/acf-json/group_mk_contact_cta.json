@@ -3,6 +3,20 @@
     "title": "Blok: Contact (formulier)",
     "fields": [
         {
+            "key": "field_mk_contact_cta_stijl",
+            "label": "Stijl",
+            "name": "stijl",
+            "type": "button_group",
+            "instructions": "Groene band (bijv. homepage) of licht als paginakop met kruimelpad en de titel als H1 (bijv. bovenaan de contactpagina).",
+            "choices": {
+                "groen": "Groene band",
+                "licht": "Licht (paginakop)"
+            },
+            "default_value": "groen",
+            "return_format": "value",
+            "layout": "horizontal"
+        },
+        {
             "key": "field_mk_contact_cta_titel",
             "label": "Titel",
             "name": "titel",
@@ -26,7 +40,9 @@
             "allow_null": 1,
             "ui": 0,
             "return_format": "value",
-            "wrapper": { "width": "50" }
+            "wrapper": {
+                "width": "50"
+            }
         },
         {
             "key": "field_mk_contact_cta_afbeelding",
@@ -37,7 +53,9 @@
             "preview_size": "medium",
             "library": "all",
             "mime_types": "jpg,jpeg,png,webp",
-            "wrapper": { "width": "25" }
+            "wrapper": {
+                "width": "25"
+            }
         },
         {
             "key": "field_mk_contact_cta_achtergrond",
@@ -49,7 +67,18 @@
             "preview_size": "medium",
             "library": "all",
             "mime_types": "jpg,jpeg,png,webp",
-            "wrapper": { "width": "25" }
+            "wrapper": {
+                "width": "25"
+            },
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_mk_contact_cta_stijl",
+                        "operator": "!=",
+                        "value": "licht"
+                    }
+                ]
+            ]
         }
     ],
     "location": [
@@ -70,5 +99,5 @@
     "active": true,
     "description": "Velden voor het Contact-blok (mk/contact-cta)",
     "show_in_rest": 0,
-    "modified": 1791808015
+    "modified": 1791812359
 }
