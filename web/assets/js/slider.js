@@ -6,6 +6,7 @@
 // - stuurt bij elke wijziging 'mk-slider:update' op het root-element:
 //   detail = { progress (0-1), scroll (px), max (px) }
 // - luistert naar 'mk-slider:refresh' en 'mk-slider:snap' (detail.direction)
+// - data-mk-slider-free: vrij scrollen zonder snap (bijv. de tijdlijn)
 document.addEventListener('DOMContentLoaded', function () {
     var DRAG_THRESHOLD = 5;
 
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var slides = track.querySelectorAll('[data-mk-slide]');
         var snapTimer = null;
+        var free = root.hasAttribute('data-mk-slider-free');
 
         function maxScroll() {
             return track.scrollWidth - track.clientWidth;
@@ -55,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Na het slepen netjes op een slide uitkomen, met een duwtje in de sleeprichting
         function snapToSlide(direction) {
-            if (!slides.length) return;
+            if (free || !slides.length) return;
             var base = slides[0].offsetLeft;
             var projected = track.scrollLeft + direction * step() * 0.3;
             var target = 0;

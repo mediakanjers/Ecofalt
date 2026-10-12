@@ -47,6 +47,28 @@
             linear-gradient(to bottom, transparent calc(151.9 * var(--mk-px)), #{$color-grey} calc(151.9 * var(--mk-px)));
     }
 
+    // VERS ASFALT //
+    // Donkere, strakke rijstrook van de linkerrand tot het verste punt dat de wals
+    // gereden heeft (--mk-paved via tijdlijn.js). Gelegd asfalt blijft liggen.
+    &__asfalt {
+        position: absolute;
+        top: calc(156 * var(--mk-px));
+        left: 0;
+        z-index: 1;
+        width: var(--mk-paved, 0px);
+        height: calc(84 * var(--mk-px));
+        background:
+            linear-gradient(to bottom, rgba($color-white, 0.06), transparent 35%),
+            #3d3d3f;
+        mask-image: linear-gradient(to left, transparent, #000 14px);
+        pointer-events: none;
+        transition: width 0.15s linear;
+    }
+
+    &.is-intro &__asfalt {
+        transition: width 2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
     // DE WALS //
     &__machine {
         position: absolute;
@@ -236,7 +258,23 @@
         border-radius: $custom-radius;
         background-color: rgba($color-white, 0.28);
         color: $color-white;
-        transition: background-color 0.4s ease, transform 0.4s ease;
+        cursor: pointer; // klik: de wals rijdt erheen
+        transition: background-color 0.4s ease, transform 0.4s ease, opacity 0.5s ease, filter 0.5s ease;
+
+        &:hover:not(.is-active) {
+            background-color: rgba($color-white, 0.36);
+        }
+
+        // Nog niet bereikt door de wals: gedimd (JS zet deze class, zonder JS alles gewoon)
+        &.is-upcoming {
+            opacity: 0.45;
+            filter: grayscale(1);
+        }
+
+        // Net bereikt: kort oplichten
+        &.is-reached {
+            animation: mk-tijdlijn-reached 0.6s ease-out;
+        }
 
         // Streepje van de weg naar het kaartje
         &::before {
@@ -283,8 +321,14 @@
         &__machine,
         &__machine.is-intro,
         &__machine-inner,
-        &__item {
+        &__item,
+        &__asfalt,
+        &.is-intro &__asfalt {
             transition: none;
+        }
+
+        &__item.is-reached {
+            animation: none;
         }
 
         &__machine.is-driving &__machine-body,
@@ -322,4 +366,10 @@
 @keyframes mk-tijdlijn-pijl-rechts {
     0%, 100% { transform: translateX(0); }
     50%      { transform: translateX(4px); }
+}
+
+// Mijlpaal licht op als de wals hem bereikt
+@keyframes mk-tijdlijn-reached {
+    0%   { box-shadow: 0 0 0 0 rgba($color-primary, 0.7); }
+    100% { box-shadow: 0 0 0 14px rgba($color-primary, 0); }
 }

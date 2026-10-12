@@ -36,7 +36,10 @@
     <?php endif; ?>
 
     <?php if ($items): ?>
-        <div class="mk-tijdlijn__road mk-slider" data-mk-slider>
+        <div class="mk-tijdlijn__road mk-slider" data-mk-slider data-mk-slider-free>
+            <?php // Vers asfalt: de weg die de wals al gereden heeft (breedte via tijdlijn.js) ?>
+            <span class="mk-tijdlijn__asfalt" aria-hidden="true"></span>
+
             <?php // De wals rijdt mee met de tijdlijn (assets/js/tijdlijn.js) ?>
             <div class="mk-tijdlijn__machine" aria-hidden="true">
                 <?php // Binnenste laag draait om bij terugrijden (.is-reversed), rook draait mee ?>
@@ -56,7 +59,8 @@
             <div class="mk-slider__viewport">
                 <ol class="mk-slider__track mk-tijdlijn__track" data-mk-slider-track tabindex="0" aria-label="<?php esc_attr_e('Tijdlijn', 'mk'); ?>">
                     <?php foreach ($items as $item): ?>
-                        <li class="mk-tijdlijn__item" data-mk-slide>
+                        <?php // Klik (of Enter) op een mijlpaal: de wals rijdt erheen ?>
+                        <li class="mk-tijdlijn__item" data-mk-slide tabindex="0" role="button" aria-label="<?php echo esc_attr(trim(($item['titel'] ?? '') . ': ' . ($item['tekst'] ?? ''), ': ')); ?>">
                             <?php if (!empty($item['titel'])): ?>
                                 <h3 class="mk-tijdlijn__item-titel"><?php echo esc_html($item['titel']); ?></h3>
                             <?php endif; ?>

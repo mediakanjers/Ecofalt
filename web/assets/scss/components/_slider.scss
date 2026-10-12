@@ -62,6 +62,11 @@ $slider-viewport: 1560px;
         }
     }
 
+    // Vrij scrollen (data-mk-slider-free): geen snap
+    &[data-mk-slider-free] &__track {
+        scroll-snap-type: none;
+    }
+
     // Na het slepen snapt slider.js zelf (met duwtje in de sleeprichting)
     &.is-snapping &__track {
         scroll-snap-type: none;
