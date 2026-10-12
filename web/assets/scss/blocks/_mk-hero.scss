@@ -105,50 +105,13 @@
         }
     }
 
-    // KAARTEN //
+    // KAARTEN — opbouw in components/_icoon-kaart.scss, hier alleen de overlap //
     &__cards {
-        @include container(1326px);
         position: relative;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: $spacing-s;
         margin-top: calc(-1 * var(--mk-hero-overlap));
 
-        @include mq(md) {
-            grid-template-columns: repeat(3, 1fr);
-            gap: clamp(1rem, 0.25rem + 1.5vw, 1.875rem);
+        .mk-icoon-kaart {
+            box-shadow: 0 10px 30px rgba($color-black, 0.08);
         }
-    }
-
-    &__card {
-        display: flex;
-        flex-direction: column;
-        padding: clamp(1.5rem, 1.368rem + 0.5634vw, 1.875rem); // 24px -> 30px
-        border-radius: $custom-radius;
-        background-color: $color-white;
-        box-shadow: 0 10px 30px rgba($color-black, 0.08);
-
-        @include mq(lg) {
-            min-height: 18.5625rem; // 297px
-        }
-    }
-
-    &__card-icon img {
-        width: auto;
-        height: clamp(3.5rem, 3.06rem + 1.88vw, 4.5rem);
-    }
-
-    &__card-title {
-        margin-top: $spacing-s;
-        text-wrap: pretty;
-    }
-
-    &__card-text {
-        margin-top: $spacing-xs;
-    }
-
-    &__card-footer {
-        margin-top: auto;
-        padding-top: $spacing-m;
     }
 }

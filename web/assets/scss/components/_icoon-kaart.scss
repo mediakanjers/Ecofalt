@@ -1,0 +1,51 @@
+// =============================================================================
+// Icoon-kaartje (template-parts/components/icoon-kaart.php)
+// Wit kaartje met icoon, titel, tekst en optioneel "Lees meer" onderin.
+// Gebruikt in de Hero (kaarten onderin) en het Kenmerken-blok.
+// Ontwerp (1920): 422 x 297, 30px padding.
+// =============================================================================
+
+.mk-icoon-kaart {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: clamp(1.5rem, 1.368rem + 0.5634vw, 1.875rem); // 24 -> 30px
+    border-radius: $custom-radius;
+    background-color: $color-white;
+
+    @include mq(lg) {
+        min-height: 18.5625rem; // 297px
+    }
+
+    &__icoon img {
+        width: auto;
+        height: clamp(3.5rem, 3.06rem + 1.88vw, 4.5rem); // 56 -> 72px
+    }
+
+    &__titel {
+        margin-top: $spacing-s;
+        text-wrap: pretty;
+    }
+
+    &__tekst {
+        margin-top: $spacing-xs;
+    }
+
+    &__footer {
+        margin-top: auto;
+        padding-top: $spacing-m;
+    }
+}
+
+// Rij met icoon-kaartjes: mobiel onder elkaar, vanaf md 3 naast elkaar
+.mk-icoon-kaarten {
+    @include container(1326px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-s;
+
+    @include mq(md) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(1rem, 0.25rem + 1.5vw, 1.875rem);
+    }
+}

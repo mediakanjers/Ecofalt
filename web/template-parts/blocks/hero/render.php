@@ -76,29 +76,10 @@
     </div>
 
     <?php if ($kaarten): ?>
-        <div class="mk-hero__cards">
+        <?php // Kaartjes: template-parts/components/icoon-kaart.php ?>
+        <div class="mk-hero__cards mk-icoon-kaarten">
             <?php foreach ($kaarten as $kaart): ?>
-                <div class="mk-hero__card">
-                    <?php if (!empty($kaart['icoon'])): ?>
-                        <div class="mk-hero__card-icon">
-                            <?php echo mk_image($kaart['icoon'], 'medium', ['alt' => '', 'loading' => 'lazy']); ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($kaart['titel'])): ?>
-                        <h2 class="mk-hero__card-title mk-h4"><?php echo esc_html($kaart['titel']); ?></h2>
-                    <?php endif; ?>
-
-                    <?php if (!empty($kaart['tekst'])): ?>
-                        <p class="mk-hero__card-text"><?php echo nl2br(esc_html($kaart['tekst'])); ?></p>
-                    <?php endif; ?>
-
-                    <?php if (!empty($kaart['link']['url'])): ?>
-                        <div class="mk-hero__card-footer">
-                            <?php echo mk_link($kaart['link'], 'mk-link', $is_preview, __('Lees meer', 'mk')); ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
+                <?php get_template_part('template-parts/components/icoon-kaart', null, ['kaart' => $kaart, 'kop' => 'h2', 'preview' => $is_preview]); ?>
             <?php endforeach; ?>
         </div>
     <?php endif; ?>

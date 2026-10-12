@@ -1,0 +1,19 @@
+{
+  "name": "mk/kenmerken",
+  "title": "Kenmerken",
+  "description": "Kaartjes met icoon, titel, tekst en optioneel een lees-meer-link (zelfde kaartjes als in de hero)",
+  "category": "mediakanjers",
+  "icon": "grid-view",
+  "keywords": ["kenmerken", "usp", "kaarten", "iconen", "voordelen"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}

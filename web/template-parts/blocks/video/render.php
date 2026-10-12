@@ -24,7 +24,7 @@
 <section<?php echo $anchor; ?> class="<?php echo esc_attr(implode(' ', $classes)); ?>">
     <div class="mk-video__container">
         <?php if ($titel): ?>
-            <h2 class="mk-video__titel mk-h4"><?php echo esc_html($titel); ?></h2>
+            <h2 class="mk-video__titel"><?php echo esc_html($titel); ?></h2>
         <?php endif; ?>
 
         <?php // Klik opent de video in de popup (assets/js/video-modal.js) ?>

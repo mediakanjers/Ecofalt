@@ -1,0 +1,13 @@
+// =============================================================================
+// Blok: Kenmerken (mk/kenmerken)
+// Rij icoon-kaartjes (components/_icoon-kaart.scss), optioneel met titel erboven.
+// =============================================================================
+
+.mk-kenmerken {
+    @include section-spacing;
+
+    &__titel {
+        @include container(1326px);
+        margin-bottom: $spacing-m;
+    }
+}

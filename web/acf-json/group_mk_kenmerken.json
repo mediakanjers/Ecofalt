@@ -1,0 +1,84 @@
+{
+    "key": "group_mk_kenmerken",
+    "title": "Blok: Kenmerken",
+    "fields": [
+        {
+            "key": "field_mk_kenmerken_titel",
+            "label": "Titel (optioneel)",
+            "name": "titel",
+            "type": "text"
+        },
+        {
+            "key": "field_mk_kenmerken_kaarten",
+            "label": "Kaartjes",
+            "name": "kaarten",
+            "type": "repeater",
+            "instructions": "Op desktop 3 naast elkaar, op mobiel onder elkaar.",
+            "layout": "block",
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_mk_kenmerken_kaart_titel",
+            "button_label": "Kaartje toevoegen",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_mk_kenmerken_kaart_icoon",
+                    "label": "Icoon",
+                    "name": "icoon",
+                    "type": "image",
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "mime_types": "svg,png,webp",
+                    "wrapper": { "width": "25" },
+                    "parent_repeater": "field_mk_kenmerken_kaarten"
+                },
+                {
+                    "key": "field_mk_kenmerken_kaart_titel",
+                    "label": "Titel",
+                    "name": "titel",
+                    "type": "text",
+                    "wrapper": { "width": "75" },
+                    "parent_repeater": "field_mk_kenmerken_kaarten"
+                },
+                {
+                    "key": "field_mk_kenmerken_kaart_tekst",
+                    "label": "Tekst",
+                    "name": "tekst",
+                    "type": "textarea",
+                    "rows": 4,
+                    "new_lines": "",
+                    "parent_repeater": "field_mk_kenmerken_kaarten"
+                },
+                {
+                    "key": "field_mk_kenmerken_kaart_link",
+                    "label": "Lees meer-link (optioneel)",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "Laat de linktekst leeg voor \"Lees meer\".",
+                    "return_format": "array",
+                    "parent_repeater": "field_mk_kenmerken_kaarten"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/kenmerken"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Kenmerken-blok (mk/kenmerken)",
+    "show_in_rest": 0,
+    "modified": 1791811586
+}
