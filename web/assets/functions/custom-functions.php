@@ -13,25 +13,78 @@
         return 'tel:' . preg_replace('/[^0-9+]/', '', (string) $number);
     }
 
+    // Afbeelding uit de mediabibliotheek (ID of ACF-array). SVG's krijgen geen width/height:
+    // WP geeft daar 1x1 mee, waardoor de browser de verhouding vierkant maakt.
+    function mk_image($image, $size = 'full', $attr = []) {
+        $id = is_array($image) ? ($image['ID'] ?? 0) : (int) $image;
+        if (!$id) return '';
+
+        if (get_post_mime_type($id) === 'image/svg+xml') {
+            $attr = array_merge([
+                'alt'      => get_post_meta($id, '_wp_attachment_image_alt', true),
+                'decoding' => 'async',
+            ], $attr);
+
+            $html = '<img src="' . esc_url(wp_get_attachment_url($id)) . '"';
+            foreach ($attr as $name => $value) {
+                $html .= ' ' . $name . '="' . esc_attr($value) . '"';
+            }
+            return $html . '>';
+        }
+
+        return wp_get_attachment_image($id, $size, false, $attr);
+    }
+
     // Logo uit Mediakanjers > Website instellingen
     function mk_logo($class = '') {
         $logo = get_field('logo', 'option');
-        $id   = is_array($logo) ? ($logo['ID'] ?? 0) : (int) $logo;
 
-        if (!$id) {
+        if (empty($logo)) {
             return '<span class="' . esc_attr($class) . '">' . esc_html(get_bloginfo('name')) . '</span>';
         }
 
-        // SVG zonder width/height: WP geeft daar 1x1 mee, wat de verhouding vierkant maakt
-        if (get_post_mime_type($id) === 'image/svg+xml') {
-            return '<img class="' . esc_attr($class) . '" src="' . esc_url(wp_get_attachment_url($id)) . '" alt="' . esc_attr(get_bloginfo('name')) . '" decoding="async">';
-        }
-
-        return wp_get_attachment_image($id, 'full', false, [
+        return mk_image($logo, 'full', [
             'class'    => $class,
             'alt'      => get_bloginfo('name'),
             'loading'  => 'eager',
             'decoding' => 'async',
         ]);
+    }
+
+    // ACF link-veld als <a> — in de block-editor als <span>, anders navigeert de editor-iframe weg
+    function mk_link($link, $class, $is_preview = false, $fallback_title = '') {
+        if (empty($link['url'])) return '';
+
+        $title = !empty($link['title']) ? $link['title'] : $fallback_title;
+
+        if ($is_preview) {
+            return '<span class="' . esc_attr($class) . '">' . esc_html($title) . '</span>';
+        }
+
+        $target = !empty($link['target']) ? $link['target'] : '_self';
+        $rel    = $target === '_blank' ? ' rel="noopener noreferrer"' : '';
+
+        return '<a class="' . esc_attr($class) . '" href="' . esc_url($link['url']) . '" target="' . esc_attr($target) . '"' . $rel . '>' . esc_html($title) . '</a>';
+    }
+
+    // Vimeo-URL ontleden: vimeo.com/123, vimeo.com/123/abc (niet-openbaar), player.vimeo.com/video/123?h=abc
+    function mk_vimeo($url) {
+        if (!$url || !preg_match('~vimeo\.com/(?:video/|channels/[^/]+/|groups/[^/]+/videos/)?(\d+)(?:/([a-zA-Z0-9]+))?~', $url, $m)) {
+            return null;
+        }
+
+        $hash = $m[2] ?? '';
+        if (!$hash) {
+            parse_str((string) wp_parse_url($url, PHP_URL_QUERY), $query);
+            $hash = $query['h'] ?? '';
+        }
+
+        return ['id' => $m[1], 'hash' => $hash];
+    }
+
+    // Embed-URL voor een ontlede Vimeo-video, met extra player-parameters
+    function mk_vimeo_embed($video, $params = []) {
+        $base = $video['hash'] ? ['h' => $video['hash']] : [];
+        return add_query_arg(array_merge($base, ['dnt' => 1], $params), 'https://player.vimeo.com/video/' . $video['id']);
     }
 ?>

@@ -1,0 +1,34 @@
+// =============================================================================
+// Ecofalt-haak (zoals in het logo): lijn boven de tekst, links een lange en
+// rechts een korte verticale haak. Gebruik: <h1 class="mk-bracket">...</h1>
+// =============================================================================
+
+.mk-bracket {
+    position: relative;
+    display: inline-block;
+    padding: 0.3em 0.4em 0;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        border: 0 solid currentColor;
+    }
+
+    // Bovenlijn + lange haak links
+    &::before {
+        left: 0;
+        right: 0;
+        height: 0.9em;
+        border-top-width: 3px;
+        border-left-width: 3px;
+    }
+
+    // Korte haak rechts
+    &::after {
+        right: 0;
+        height: 0.35em;
+        border-right-width: 3px;
+    }
+}

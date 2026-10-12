@@ -1,0 +1,197 @@
+{
+    "key": "group_mk_hero",
+    "title": "Blok: Hero",
+    "fields": [
+        {
+            "key": "field_mk_hero_tab_content",
+            "label": "Content",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_hero_titel",
+            "label": "Titel",
+            "name": "titel",
+            "type": "textarea",
+            "instructions": "Een enter geeft een harde regelafbreking.",
+            "required": 1,
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mk_hero_tekst",
+            "label": "Introtekst",
+            "name": "tekst",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mk_hero_knop_1",
+            "label": "Primaire knop",
+            "name": "knop_1",
+            "type": "link",
+            "instructions": "Groene knop.",
+            "return_format": "array",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_hero_knop_2",
+            "label": "Secundaire knop",
+            "name": "knop_2",
+            "type": "link",
+            "instructions": "Witte knop.",
+            "return_format": "array",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_hero_tab_achtergrond",
+            "label": "Achtergrond",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_hero_vimeo",
+            "label": "Vimeo-video",
+            "name": "vimeo",
+            "type": "url",
+            "instructions": "Bijv. https://vimeo.com/123456789. Speelt als achtergrondvideo af en toont de knop om de film met geluid te bekijken. Leeg = donkergroene achtergrond.",
+            "placeholder": "https://vimeo.com/..."
+        },
+        {
+            "key": "field_mk_hero_film_knoptekst",
+            "label": "Tekst filmknop",
+            "name": "film_knoptekst",
+            "type": "text",
+            "placeholder": "Bekijk de bedrijfsfilm",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_mk_hero_vimeo",
+                        "operator": "!=empty"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_mk_hero_afbeelding",
+            "label": "Achtergrondafbeelding (optioneel)",
+            "name": "afbeelding",
+            "type": "image",
+            "instructions": "Wordt getoond zolang de video laadt, in de editor, en zonder video.",
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": "jpg,jpeg,png,webp"
+        },
+        {
+            "key": "field_mk_hero_overlay",
+            "label": "Groene overlay",
+            "name": "overlay",
+            "type": "range",
+            "instructions": "Sterkte van de donkergroene laag over de video/afbeelding.",
+            "default_value": 70,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "append": "%"
+        },
+        {
+            "key": "field_mk_hero_onderkant",
+            "label": "Achtergrond onder de kaarten",
+            "name": "onderkant",
+            "type": "button_group",
+            "choices": {
+                "off-white": "Gebroken wit",
+                "white": "Wit"
+            },
+            "default_value": "off-white",
+            "return_format": "value",
+            "layout": "horizontal"
+        },
+        {
+            "key": "field_mk_hero_tab_kaarten",
+            "label": "Kaarten",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_hero_kaarten",
+            "label": "Kaarten",
+            "name": "kaarten",
+            "type": "repeater",
+            "instructions": "Maximaal 3 kaarten, die half over de onderkant van de hero vallen.",
+            "layout": "block",
+            "min": 0,
+            "max": 3,
+            "collapsed": "field_mk_hero_kaart_titel",
+            "button_label": "Kaart toevoegen",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_mk_hero_kaart_icoon",
+                    "label": "Icoon",
+                    "name": "icoon",
+                    "type": "image",
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "mime_types": "svg,png,webp",
+                    "wrapper": { "width": "25" },
+                    "parent_repeater": "field_mk_hero_kaarten"
+                },
+                {
+                    "key": "field_mk_hero_kaart_titel",
+                    "label": "Titel",
+                    "name": "titel",
+                    "type": "text",
+                    "wrapper": { "width": "75" },
+                    "parent_repeater": "field_mk_hero_kaarten"
+                },
+                {
+                    "key": "field_mk_hero_kaart_tekst",
+                    "label": "Tekst",
+                    "name": "tekst",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": "",
+                    "parent_repeater": "field_mk_hero_kaarten"
+                },
+                {
+                    "key": "field_mk_hero_kaart_link",
+                    "label": "Lees meer-link",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "Laat de linktekst leeg voor \"Lees meer\".",
+                    "return_format": "array",
+                    "parent_repeater": "field_mk_hero_kaarten"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/hero"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Hero-blok (mk/hero)",
+    "show_in_rest": 0,
+    "modified": 1791795673
+}

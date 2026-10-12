@@ -1,6 +1,5 @@
 // =============================================================================
-// Design tokens als CSS-variabelen (runtime). Uitgesloten van sass-lint in
-// gulpfile.js, want sass-lint kan custom properties met #{} niet parsen.
+// Design tokens als CSS-variabelen (runtime), te gebruiken als var(--mk-...).
 // =============================================================================
 
 :root {

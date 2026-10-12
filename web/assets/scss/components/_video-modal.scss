@@ -1,0 +1,73 @@
+// =============================================================================
+// Videopopup — <dialog> uit assets/js/video-modal.js, geopend via [data-mk-video]
+// =============================================================================
+
+.mk-video-modal {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: var(--mk-gutter);
+    border: 0;
+    background: transparent;
+
+    &[open] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &::backdrop {
+        background-color: rgba($color-black, 0.85);
+    }
+
+    &__frame {
+        width: min(100%, 1200px, (100vh - 2 * var(--mk-gutter) - 60px) * 16 / 9);
+        aspect-ratio: 16 / 9;
+        background-color: $color-black;
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    }
+
+    // Kruisje rechtsboven
+    &__close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 44px;
+        height: 44px;
+        border: 0;
+        background: none;
+        color: $color-white;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 26px;
+            height: 2px;
+            background-color: currentColor;
+        }
+
+        &::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+}

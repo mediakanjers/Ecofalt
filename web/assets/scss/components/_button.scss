@@ -2,6 +2,7 @@
 // Knoppen en links
 //   .mk-button.mk-button--primair    groene knop (hover: donkergroen + groene schaduw)
 //   .mk-button.mk-button--secundair  witte knop met groene tekst
+//   .mk-button.mk-button--ghost      halfdoorzichtig wit, op donkere achtergronden
 //   .mk-link                         groene tekstlink met pijl die bij hover naar rechts schuift
 // =============================================================================
 
@@ -16,6 +17,10 @@
     &--secundair,
     &--secondary {
         @include button-secondary;
+    }
+
+    &--ghost {
+        @include button-ghost;
     }
 }
 

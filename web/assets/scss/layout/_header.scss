@@ -91,14 +91,14 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 6px;
-        width: 44px;
-        height: 44px;
-        margin-right: -10px;
-        padding: 10px;
+        gap: 7px;
+        width: 48px;
+        height: 48px;
+        margin-right: -8px;
+        padding: 8px;
         border: 0;
         background: none;
-        color: $color-black;
+        color: $color-primary;
         cursor: pointer;
 
         @include mq(lg) {
@@ -109,13 +109,13 @@
     &__toggle-line {
         display: block;
         width: 100%;
-        height: 2px;
-        border-radius: 2px;
+        height: 4px;
+        border-radius: 1px;
         background-color: currentColor;
         transition: background-color $custom-transition;
     }
 
     &__toggle:hover &__toggle-line {
-        background-color: $color-primary;
+        background-color: $color-dark-green;
     }
 }

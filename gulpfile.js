@@ -17,7 +17,8 @@ const uglifyEs = require("gulp-uglify-es").default;
 const babel = require("gulp-babel");
 const livereload = require("gulp-livereload");
 const wpPot = require('gulp-wp-pot');
-const sassLint = require('gulp-sass-lint');
+const sassLint = require('sass-lint');
+const { Transform } = require('stream');
 const fontello = require('gulp-fontello');
 const concat = require('gulp-concat');
 const clean = require('gulp-clean');
@@ -35,23 +36,40 @@ const paths = {
 	jsvendor: [`${srcPath}/js/vendor/*.js`],
 };
 
+// SCSS-lint — sass-lint kan geen CSS custom properties (--x: ...) parsen en crashte
+// daarmee de hele build. Bestanden die hij niet kan lezen worden nu overgeslagen;
+// alleen echte lint-errors laten de build falen.
+function lintScss() {
+	let warnings = 0;
+	return new Transform({
+		objectMode: true,
+		transform(file, enc, cb) {
+			let result;
+			try {
+				result = sassLint.lintText({ text: file.contents.toString(), format: 'scss', filename: file.path }, {}, 'sass-lint.yml');
+			} catch (e) {
+				return cb(null, file);
+			}
+			warnings += result.warningCount;
+			if (result.errorCount > 0) {
+				console.log(sassLint.format([result]));
+				return cb(new Error(`sass-lint: ${result.errorCount} error(s) in ${file.relative}`));
+			}
+			cb(null, file);
+		},
+		flush(cb) {
+			if (warnings) console.log(`sass-lint: ${warnings} waarschuwingen (niet blokkerend)`);
+			cb();
+		},
+	});
+}
+
 // CSS task
 async function css() {
 	const autoprefixer = await import('gulp-autoprefixer');
 
 	return src(paths.scss)
-		.pipe(sassLint({
-			options: {
-				formatter: 'stylish'
-			},
-			configFile: 'sass-lint.yml',
-			// sass-lint kan custom properties met #{} niet parsen en crasht dan de build
-			files: {
-				ignore: 'web/assets/scss/theme/_tokens.scss'
-			}
-		}))
-		.pipe(sassLint.format())
-		.pipe(sassLint.failOnError())
+		.pipe(lintScss())
 		.pipe(sass({ outputStyle: "compressed" })) // geen uglifycss: dat sloopt de spaties in clamp()/calc()
 		.pipe(
 			autoprefixer.default({

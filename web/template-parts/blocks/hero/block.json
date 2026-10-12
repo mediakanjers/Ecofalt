@@ -1,0 +1,19 @@
+{
+  "name": "mk/hero",
+  "title": "Hero",
+  "description": "Openingsblok met titel, introtekst, knoppen, Vimeo-achtergrondvideo en kaarten onderin",
+  "category": "mediakanjers",
+  "icon": "cover-image",
+  "keywords": ["hero", "header", "video", "kaarten"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}
