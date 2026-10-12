@@ -7,7 +7,7 @@
             "label": "Stijl",
             "name": "stijl",
             "type": "button_group",
-            "instructions": "Groene band (bijv. homepage) of licht als paginakop met kruimelpad en de titel als H1 (bijv. bovenaan de contactpagina).",
+            "instructions": "Groene band (bijv. homepage) of licht als paginakop met de titel als H1 (bijv. bovenaan de contactpagina).",
             "choices": {
                 "groen": "Groene band",
                 "licht": "Licht (paginakop)"
@@ -99,5 +99,5 @@
     "active": true,
     "description": "Velden voor het Contact-blok (mk/contact-cta)",
     "show_in_rest": 0,
-    "modified": 1791812359
+    "modified": 1791812545
 }

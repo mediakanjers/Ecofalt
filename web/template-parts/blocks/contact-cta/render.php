@@ -7,7 +7,7 @@
     $stijl       = get_field('stijl') === 'licht' ? 'licht' : 'groen';
     $licht       = $stijl === 'licht';
 
-    // Groen: band met gecentreerde tekst. Licht: paginakop (kruimelpad + h1), zonder band
+    // Groen: band met gecentreerde tekst. Licht: paginakop (h1, links uitgelijnd), zonder band
     $classes = ['mk-contact-cta', 'mk-contact-cta--' . $stijl];
     if (!$licht) $classes[] = 'mk-on-dark';
     if ($licht) $achtergrond = null;
@@ -27,7 +27,6 @@
     <div class="mk-contact-cta__container">
         <?php if ($titel || $tekst): ?>
             <div class="mk-contact-cta__intro">
-                <?php if ($licht && function_exists('mk_breadcrumbs')) mk_breadcrumbs($is_preview); ?>
                 <?php if ($titel): ?>
                     <?php $kop = $licht ? 'h1' : 'h2'; ?>
                     <<?php echo $kop; ?> class="mk-contact-cta__titel mk-h2"><?php echo esc_html($titel); ?></<?php echo $kop; ?>>

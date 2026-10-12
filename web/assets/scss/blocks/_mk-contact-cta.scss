@@ -130,7 +130,7 @@
 
 // =============================================================================
 // Variant "Licht" — paginakop zonder band (bijv. bovenaan de contactpagina):
-// kruimelpad, h1 en tekst links, formulier + foto over de contentbreedte (1326)
+// h1 en tekst links, formulier + foto over de contentbreedte (1326)
 // =============================================================================
 
 .mk-contact-cta--licht {
@@ -151,13 +151,6 @@
     .mk-contact-cta__tekst {
         max-width: 920px;
         margin-inline: 0;
-    }
-
-    .mk-breadcrumbs {
-        flex-wrap: wrap;
-        width: auto;
-        max-width: none;
-        margin: 0 0 $spacing-s;
     }
 
     // Witte velden op de grijze achtergrond (zoals de standaard formulieren)
