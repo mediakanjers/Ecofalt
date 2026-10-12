@@ -15,7 +15,9 @@
     if (!empty($block['className'])) $classes[] = $block['className'];
 
     $anchor  = !empty($block['anchor']) ? ' id="' . esc_attr($block['anchor']) . '"' : '';
-    $machine = get_stylesheet_directory_uri() . '/assets/images/tijdlijn-machine.svg';
+    // Wals inline, zodat het logo los teruggespiegeld kan worden bij omdraaien
+    $machine = file_get_contents(get_stylesheet_directory() . '/assets/images/tijdlijn-machine.svg');
+    $machine = str_replace('<svg ', '<svg aria-hidden="true" focusable="false" ', $machine);
 ?>
 
 <section<?php echo $anchor; ?> class="<?php echo esc_attr(implode(' ', $classes)); ?>">
@@ -37,8 +39,11 @@
         <div class="mk-tijdlijn__road mk-slider" data-mk-slider>
             <?php // De wals rijdt mee met de tijdlijn (assets/js/tijdlijn.js) ?>
             <div class="mk-tijdlijn__machine" aria-hidden="true">
-                <img class="mk-tijdlijn__machine-body" src="<?php echo esc_url($machine); ?>" alt="" draggable="false" width="370" height="230">
-                <span class="mk-tijdlijn__smoke"><i></i><i></i><i></i></span>
+                <?php // Binnenste laag draait om bij terugrijden (.is-reversed), rook draait mee ?>
+                <div class="mk-tijdlijn__machine-inner">
+                    <div class="mk-tijdlijn__machine-body"><?php echo $machine; ?></div>
+                    <span class="mk-tijdlijn__smoke"><i></i><i></i><i></i></span>
+                </div>
             </div>
 
             <div class="mk-slider__viewport">

@@ -2,6 +2,7 @@
 // - positie volgt de voortgang van de tijdlijn: links bij de eerste mijlpaal, rechts bij de laatste
 // - de straat schuift langzamer mee (parallax), zodat het voelt alsof de wals rijdt
 // - tijdens het rijden trilt de wals en komt er rook uit de uitlaat (CSS: .is-driving)
+// - terug in de tijd: de wals draait om en rijdt de andere kant op (CSS: .is-reversed)
 // - het kaartje waar de voorste wals bij is, wordt actief (groen)
 // - bij in beeld komen rijdt de wals van buiten het scherm naar zijn startplek
 document.addEventListener('DOMContentLoaded', function () {
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var OVERHANG = 134;          // ontwerp: wals start 134px links van de content
     var FRONT = 0.78;            // voorste wals op 78% van de breedte
     var PARALLAX = 0.35;         // straat schuift 35% van de tijdlijn-scroll mee
+    var TURN_THRESHOLD = 6;      // pas omdraaien na zoveel px de andere kant op (geen gewiebel)
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     document.querySelectorAll('.mk-tijdlijn').forEach(function (tijdlijn) {
@@ -20,7 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var lastX = null;
         var driveTimer = null;
-        var parked = false; // wacht buiten beeld op de intro
+        var parked = false;   // wacht buiten beeld op de intro
+        var reversed = false; // rijdt naar links (terug in de tijd)
+        var anchorX = null;   // punt van waaraf een richtingwissel gemeten wordt
 
         // Begin en eind van de rit, afgestemd op de content (eerste kaartje)
         function route() {
@@ -54,7 +58,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Kaartje het dichtst bij de voorste wals wordt actief
         function markActive(x) {
             if (!items.length) return;
-            var front = road.getBoundingClientRect().left + x + machine.offsetWidth * FRONT;
+            // Voorste wals zit rechts, of links als hij omgedraaid is
+            var front = road.getBoundingClientRect().left + x + machine.offsetWidth * (reversed ? 1 - FRONT : FRONT);
             var best = null;
             var bestDistance = Infinity;
 
@@ -72,21 +77,43 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        function render() {
+        // Richting volgen: verder dezelfde kant op verschuift het meetpunt mee,
+        // pas na TURN_THRESHOLD px de andere kant op draait de wals om
+        function updateDirection(x) {
+            if (anchorX === null) {
+                anchorX = x;
+                return;
+            }
+            if (reversed ? x <= anchorX : x >= anchorX) {
+                anchorX = x;
+            } else if (Math.abs(x - anchorX) > TURN_THRESHOLD) {
+                reversed = !reversed;
+                anchorX = x;
+                machine.classList.toggle('is-reversed', reversed);
+            }
+        }
+
+        // fromResize: alleen herpositioneren, niet omdraaien of laten rijden
+        function render(fromResize) {
             var r = route();
             var x = r.start + progress() * Math.max(0, r.end - r.start);
 
             road.style.setProperty('--mk-road-shift', (-track.scrollLeft * PARALLAX) + 'px');
+
+            if (!parked && fromResize !== true) updateDirection(x);
+            if (fromResize === true) anchorX = x;
             markActive(x);
 
             if (parked) return;
-            if (lastX !== null && Math.abs(x - lastX) > 0.5) setDriving();
+            if (fromResize !== true && lastX !== null && Math.abs(x - lastX) > 0.5) setDriving();
             machine.style.setProperty('--mk-machine-x', x + 'px');
             lastX = x;
         }
 
         tijdlijn.querySelector('[data-mk-slider]').addEventListener('mk-slider:update', render);
-        window.addEventListener('resize', render);
+        window.addEventListener('resize', function () {
+            render(true);
+        });
 
         // Intro: wals buiten beeld parkeren en laten inrijden zodra de weg in beeld komt
         if (!reduceMotion && 'IntersectionObserver' in window) {

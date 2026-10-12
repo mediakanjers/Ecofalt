@@ -50,6 +50,7 @@
     <path id="Path_14264" data-name="Path 14264" d="M26.523,5.994h74.238V-39.551H26.523Z" transform="translate(114.302 16.152)" fill="#afccd1"/>
     <path id="Path_14265" data-name="Path 14265" d="M26.523,6.017h74.238V-30.322H26.523Z" transform="translate(114.302 55.925)" fill="#afccd1"/>
     <path id="Path_14266" data-name="Path 14266" d="M17.654,17.9h36.9v-57.46h-36.9Z" transform="translate(76.081 16.135)" fill="#afccd1"/>
+    <g class="mk-machine-logo"><!-- ECOFALT-logo: wordt teruggespiegeld als de wals omdraait -->
     <g id="Group_5348" data-name="Group 5348" transform="translate(206.497 125.075)">
       <path id="Path_14267" data-name="Path 14267" d="M0,0V11.994H4.975V10.407H1.789V1.588H4.927V0Z" fill="#fff"/>
     </g>
@@ -77,6 +78,7 @@
     </g>
     <g id="Group_5356" data-name="Group 5356" transform="translate(244.537 125.074)">
       <path id="Path_14277" data-name="Path 14277" d="M4.659,1.289H2.683V11.7H.894V1.289H-1.081V-.3h5.74Z" transform="translate(1.081 0.299)" fill="#fff"/>
+    </g>
     </g>
     <path id="Path_14278" data-name="Path 14278" d="M38.891-13.914h9.265V-30.623H38.891Z" transform="translate(167.602 54.628)" fill="#1c1c1c"/>
     <path id="Path_14279" data-name="Path 14279" d="M0-4.851H18.132v-8.3H0Z" transform="translate(0 129.928)" fill="#595959"/>
