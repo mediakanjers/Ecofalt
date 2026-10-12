@@ -1,0 +1,10 @@
+// =============================================================================
+// Design tokens als CSS-variabelen (runtime). Uitgesloten van sass-lint in
+// gulpfile.js, want sass-lint kan custom properties met #{} niet parsen.
+// =============================================================================
+
+:root {
+    --mk-gutter: #{$custom-gutter};
+    --mk-section-spacing: #{$spacing-section};
+    --mk-radius: #{$custom-radius};
+}

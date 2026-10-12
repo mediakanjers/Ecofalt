@@ -1,0 +1,13 @@
+// =============================================================================
+// Losse core-blokken in de content (fallback) — eigen mk/-blokken regelen hun
+// eigen container en witruimte.
+// =============================================================================
+
+.entry-content > [class^="wp-block-"]:not(.wp-block-group) {
+    @include container;
+    @include section-spacing;
+}
+
+.wp-block-column:empty {
+    display: none;
+}

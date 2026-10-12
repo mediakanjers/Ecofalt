@@ -1,0 +1,50 @@
+// =============================================================================
+// Knoppen en links
+//   .mk-button.mk-button--primair    groene knop (hover: donkergroen + groene schaduw)
+//   .mk-button.mk-button--secundair  witte knop met groene tekst
+//   .mk-link                         groene tekstlink met pijl die bij hover naar rechts schuift
+// =============================================================================
+
+.mk-button {
+    @include button-base;
+
+    &--primair,
+    &--primary {
+        @include button-primary;
+    }
+
+    &--secundair,
+    &--secondary {
+        @include button-secondary;
+    }
+}
+
+.mk-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-s;
+}
+
+.mk-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    color: $color-primary;
+    font-weight: 400;
+    text-decoration: none;
+    transition: color $custom-transition;
+
+    &::after {
+        @include icon-mask($icon-arrow-right, 1.1em);
+        transition: transform $custom-transition;
+    }
+
+    &:hover,
+    &:focus-visible {
+        color: $color-primary;
+
+        &::after {
+            transform: translateX(5px);
+        }
+    }
+}

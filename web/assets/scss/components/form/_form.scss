@@ -1,0 +1,149 @@
+// =============================================================================
+// Gravity Forms — zwevende labels (animatie via assets/js/form.js)
+// =============================================================================
+
+.gform_wrapper {
+    .gform_fields {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-s;
+
+        @include mq(sm) {
+            grid-template-columns: repeat(2, 1fr);
+
+            .gfield:not(.gfield--width-half) {
+                grid-column: 1 / -1;
+            }
+        }
+    }
+
+    .gfield {
+        position: relative;
+
+        // Zwevend label boven in het veld
+        .gfield_label {
+            position: absolute;
+            top: 27px;
+            left: 20px;
+            z-index: 1;
+            display: block;
+            color: $custom-color-placeholder;
+            font-size: $font-size-normal;
+            font-weight: 400;
+            line-height: 0;
+            pointer-events: none;
+            transition: top $custom-transition, font-size $custom-transition;
+
+            .gfield_required {
+                color: $custom-color-error;
+            }
+
+            .gfield_required_text {
+                font-size: 0;
+
+                &::before {
+                    content: "*";
+                    padding-left: 2px;
+                    font-size: $font-size-normal;
+                }
+            }
+        }
+
+        &.is-active .gfield_label,
+        &.is-filled .gfield_label {
+            top: 13px;
+            font-size: 12px;
+
+            .gfield_required_text::before {
+                font-size: 12px;
+            }
+        }
+
+        // Velden zonder zwevend label (keuzes, toestemming e.d.)
+        &--type-checkbox,
+        &--type-radio,
+        &--type-consent,
+        &--type-select,
+        &--type-fileupload {
+            .gfield_label {
+                position: static;
+                margin-bottom: 8px;
+                color: $font-color-normal;
+                line-height: 1.5;
+            }
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 26px 20px 10px;
+            border: 1px solid $color-light-grey;
+            border-radius: $custom-radius;
+            background: $color-white;
+            color: $custom-color-placeholder;
+            font-family: $font-family-body;
+            font-size: $font-size-normal;
+            line-height: 1.5;
+            transition: border-color $custom-transition;
+
+            &:focus {
+                border-color: $color-primary;
+                outline: none;
+            }
+        }
+
+        select {
+            padding-block: 14px;
+        }
+
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+    }
+
+    .gform-footer,
+    .gform_page_footer {
+        margin-top: $spacing-m;
+
+        .gform_button,
+        .gform_next_button,
+        .gform_previous_button {
+            @include button-primary;
+        }
+    }
+
+    // FOUTMELDINGEN //
+    .gform_validation_errors {
+        margin-bottom: $spacing-s;
+
+        .gform_submission_error {
+            color: $custom-color-error;
+            font-size: $font-size-normal;
+        }
+    }
+
+    .gfield_error {
+        input,
+        textarea,
+        select {
+            border-color: $custom-color-error;
+        }
+
+        .gfield_validation_message {
+            margin-top: 6px;
+            color: $custom-color-error;
+            font-size: $font-size-small;
+        }
+    }
+}
+
+.gform_confirmation_message {
+    color: $color-primary;
+    font-size: $font-size-intro;
+}
