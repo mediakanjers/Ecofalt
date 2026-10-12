@@ -37,9 +37,6 @@
 
     <?php if ($items): ?>
         <div class="mk-tijdlijn__road mk-slider" data-mk-slider data-mk-slider-free>
-            <?php // Vers asfalt: de weg die de wals al gereden heeft (breedte via tijdlijn.js) ?>
-            <span class="mk-tijdlijn__asfalt" aria-hidden="true"></span>
-
             <?php // De wals rijdt mee met de tijdlijn (assets/js/tijdlijn.js) ?>
             <div class="mk-tijdlijn__machine" aria-hidden="true">
                 <?php // Binnenste laag draait om bij terugrijden (.is-reversed), rook draait mee ?>

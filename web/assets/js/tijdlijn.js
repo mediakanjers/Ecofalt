@@ -4,12 +4,11 @@
 // - tijdens het rijden trilt de wals en komt er rook uit de uitlaat (CSS: .is-driving)
 // - terug in de tijd: de wals draait om en rijdt de andere kant op (CSS: .is-reversed)
 // - het kaartje waar de voorste wals bij is, wordt actief (groen)
-// - vers asfalt: de weg tot het verste punt dat de wals gereden heeft wordt donker (blijft liggen)
 // - mijlpalen die de wals nog niet bereikt heeft zijn gedimd en lichten op als hij ze bereikt
 // - klik (of Enter) op een mijlpaal: de wals rijdt erheen
 // - bij in beeld komen rijdt de wals van buiten het scherm naar zijn startplek
 // - de wals zelf is te slepen (muis + touch): zo rijd je door de tijd
-// - ballonnetje met aanwijzing tot de eerste interactie (1x per bezoek)
+// - ballonnetje met aanwijzing na de intro, tot de eerste interactie
 document.addEventListener('DOMContentLoaded', function () {
     var MACHINE_WIDTH = 370;     // breedte van tijdlijn-machine.svg op schaal 1
     var OVERHANG = 134;          // ontwerp: wals start 134px links van de content
@@ -32,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var introDone = true;    // mijlpalen pas laten oplichten na de intro
         var reversed = false;    // rijdt naar links (terug in de tijd)
         var anchorX = null;      // punt van waaraf een richtingwissel gemeten wordt
-        var pavedRatio = 0;      // vers asfalt, als deel van de wegbreedte (blijft kloppen bij resize)
         var reachedIndex = -1;   // hoogste mijlpaal die de wals bereikt heeft
 
         function maxScroll() {
@@ -115,13 +113,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Vers asfalt tot het verste punt van de rechter wals (gelegd asfalt blijft liggen)
-        function pave(x) {
-            var roadWidth = road.clientWidth || 1;
-            pavedRatio = Math.max(pavedRatio, (x + machine.offsetWidth * FRONT) / roadWidth);
-            road.style.setProperty('--mk-paved', Math.min(1, pavedRatio) * roadWidth + 'px');
-        }
-
         // Richting volgen: verder dezelfde kant op verschuift het meetpunt mee,
         // pas na TURN_THRESHOLD px de andere kant op draait de wals om
         function updateDirection(x) {
@@ -159,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var front = frontOnScreen(x);
             markActive(front);
-            pave(x);
             if (introDone) markReached(front, !resize);
 
             if (!resize && lastX !== null && Math.abs(x - lastX) > 0.5) setDriving();
@@ -203,11 +193,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // AANWIJZING — tonen na de intro, weg bij de eerste interactie, 1x per bezoek
+        // AANWIJZING — tonen na de intro, weg bij de eerste interactie
         var hintDone = false;
-        try {
-            hintDone = sessionStorage.getItem('mk-tijdlijn-hint') === '1';
-        } catch (e) {}
 
         function showHint() {
             if (!hintDone) tijdlijn.classList.add('is-hinting');
@@ -217,9 +204,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (hintDone) return;
             hintDone = true;
             tijdlijn.classList.remove('is-hinting');
-            try {
-                sessionStorage.setItem('mk-tijdlijn-hint', '1');
-            } catch (e) {}
         }
 
         road.addEventListener('pointerdown', dismissHint);
@@ -286,18 +270,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 parked = false;
                 machine.classList.add('is-intro', 'is-driving');
-                tijdlijn.classList.add('is-intro'); // asfalt groeit mee met het inrijden
                 render();
 
-                machine.addEventListener('transitionend', function done(e) {
-                    if (e.target !== machine || e.propertyName !== 'transform') return;
-                    machine.removeEventListener('transitionend', done);
+                // Einde van de intro; vangnet als transitionend niet komt (bijv. tabblad op de achtergrond)
+                var fallback = setTimeout(finishIntro, 2300);
+                function finishIntro() {
+                    if (introDone) return;
+                    clearTimeout(fallback);
+                    machine.removeEventListener('transitionend', onEnd);
                     machine.classList.remove('is-intro', 'is-driving');
-                    tijdlijn.classList.remove('is-intro');
                     introDone = true;
                     render(); // eerste mijlpaal licht op
                     showHint();
-                });
+                }
+                function onEnd(e) {
+                    if (e.target === machine && e.propertyName === 'transform') finishIntro();
+                }
+                machine.addEventListener('transitionend', onEnd);
             }, { threshold: 0.4 });
 
             observer.observe(road);
