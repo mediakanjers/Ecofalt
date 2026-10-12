@@ -19,6 +19,8 @@ $galerij-viewport: 1560px;
     }
 
     &__track {
+        position: relative; // offsetLeft van de foto's t.o.v. de track (galerij.js)
+
         // Eerste foto lijnt uit met de content, of met de gutter op kleine schermen
         --mk-galerij-inset: max(var(--mk-gutter), calc((100% - #{$galerij-content}) / 2));
 
@@ -38,6 +40,30 @@ $galerij-viewport: 1560px;
         &:focus-visible {
             outline-offset: -3px;
         }
+
+        // Slepen met de muis
+        @media (pointer: fine) {
+            cursor: grab;
+        }
+    }
+
+    // Tijdens het slepen (foto's of blokje): geen snap, geen tekstselectie
+    &.is-dragging &__track {
+        cursor: grabbing;
+        scroll-snap-type: none;
+        user-select: none;
+    }
+
+    &.is-dragging &__thumb {
+        cursor: grabbing;
+        transition: none;
+    }
+
+    &__link {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: inherit;
     }
 
     &__slide {
@@ -55,6 +81,13 @@ $galerij-viewport: 1560px;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        -webkit-user-drag: none;
+        user-select: none;
+        transition: transform 0.4s ease;
+    }
+
+    &__link:hover &__image {
+        transform: scale(1.03);
     }
 
     // NAVIGATIE //
@@ -62,6 +95,7 @@ $galerij-viewport: 1560px;
         @include container($galerij-content);
         position: relative;
         margin-top: $spacing-l;
+        cursor: pointer; // klik op de lijn springt erheen
 
         // Zonder iets om te scrollen (weinig foto's) geen navigatie
         &[hidden] {
@@ -85,6 +119,8 @@ $galerij-viewport: 1560px;
         display: flex;
         width: fit-content;
         background-color: $color-primary;
+        cursor: grab;
+        touch-action: none; // slepen met de vinger i.p.v. pagina scrollen
         transition: transform 0.2s ease-out;
     }
 
