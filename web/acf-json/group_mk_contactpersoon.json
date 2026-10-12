@@ -1,0 +1,76 @@
+{
+    "key": "group_mk_contactpersoon",
+    "title": "Blok: Contactpersoon",
+    "fields": [
+        {
+            "key": "field_mk_contactpersoon_foto",
+            "label": "Foto",
+            "name": "foto",
+            "type": "image",
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": "jpg,jpeg,png,webp",
+            "wrapper": { "width": "30" }
+        },
+        {
+            "key": "field_mk_contactpersoon_titel",
+            "label": "Titel",
+            "name": "titel",
+            "type": "text",
+            "placeholder": "Ecofalt toepassen?",
+            "wrapper": { "width": "70" }
+        },
+        {
+            "key": "field_mk_contactpersoon_tekst",
+            "label": "Tekst",
+            "name": "tekst",
+            "type": "textarea",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mk_contactpersoon_naam",
+            "label": "Naam",
+            "name": "naam",
+            "type": "text",
+            "placeholder": "Dorien",
+            "wrapper": { "width": "33" }
+        },
+        {
+            "key": "field_mk_contactpersoon_email",
+            "label": "E-mailadres",
+            "name": "email",
+            "type": "email",
+            "placeholder": "info@ecofalt.nl",
+            "wrapper": { "width": "34" }
+        },
+        {
+            "key": "field_mk_contactpersoon_telefoon",
+            "label": "Telefoonnummer",
+            "name": "telefoon",
+            "type": "text",
+            "placeholder": "053 428 2278",
+            "wrapper": { "width": "33" }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/contactpersoon"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Contactpersoon-blok (mk/contactpersoon)",
+    "show_in_rest": 0,
+    "modified": 1791812013
+}

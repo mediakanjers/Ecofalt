@@ -1,0 +1,70 @@
+// =============================================================================
+// Blok: Contactpersoon (mk/contactpersoon)
+// Wit kaartje (±1020 breed): foto links (312 x 300), titel, tekst en
+// contactgegevens rechts. Mobiel foto boven de tekst.
+// =============================================================================
+
+.mk-contactpersoon {
+    @include section-spacing;
+    @include container(1020px);
+
+    &__kaart {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-l;
+        padding: clamp(1rem, 0.824rem + 0.751vw, 1.5rem); // 16 -> 24px
+        border-radius: $custom-radius;
+        background-color: $color-white;
+    }
+
+    &--met-foto &__kaart {
+        @include mq(sm) {
+            grid-template-columns: minmax(0, 312px) minmax(0, 1fr);
+            gap: clamp(1.5rem, 0.2rem + 3.5vw, 4rem);
+            align-items: center;
+        }
+    }
+
+    &__foto img {
+        width: 100%;
+        aspect-ratio: 312 / 300;
+        border-radius: $custom-radius;
+        object-fit: cover;
+    }
+
+    &__inhoud {
+        max-width: 560px;
+        padding-block: $spacing-xs;
+
+        @include mq(sm) {
+            padding-right: $spacing-m;
+        }
+    }
+
+    &__tekst {
+        margin-top: $spacing-s;
+    }
+
+    &__gegevens {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin-top: $spacing-l;
+    }
+
+    &__naam {
+        color: $color-primary;
+        font-weight: 600;
+    }
+
+    &__link {
+        width: fit-content;
+        color: $color-black;
+        transition: color $custom-transition;
+
+        &:hover,
+        &:focus-visible {
+            color: $color-primary;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "mk/contactpersoon",
+  "title": "Contactpersoon",
+  "description": "Wit kaartje met foto, titel, tekst en een contactpersoon (naam, e-mail, telefoon)",
+  "category": "mediakanjers",
+  "icon": "id",
+  "keywords": ["contact", "cta", "contactpersoon", "medewerker"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}
