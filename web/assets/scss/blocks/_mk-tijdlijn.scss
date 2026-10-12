@@ -1,0 +1,185 @@
+// =============================================================================
+// Blok: Tijdlijn (mk/tijdlijn)
+// Intro (titel, tekst, knop) met daaronder de weg (tijdlijn-street.svg) waarover
+// de wals (tijdlijn-machine.svg) meerijdt met de slider (assets/js/tijdlijn.js).
+//
+// Maten komen uit de SVG's (1920 breed). --mk-px schaalt ze mee:
+// 0.6 op mobiel (375) -> 1 vanaf 1440. Bijv. calc(124 * var(--mk-px)).
+//   street: bomen 0-124, weg vanaf 123.6, middenstreep op 221.6
+//   machine: 370 x 230, uitlaat linksboven, voorste wals rechts
+// =============================================================================
+
+.mk-tijdlijn {
+    --mk-px: clamp(0.6px, 0.4592px + 0.03756vw, 1px);
+    margin-bottom: var(--mk-section-spacing);
+
+    // INTRO //
+    &__intro {
+        @include container(900px);
+        text-align: center;
+    }
+
+    &__tekst {
+        max-width: 820px;
+        margin: $spacing-m auto 0;
+    }
+
+    &__intro .mk-button {
+        margin-top: $spacing-l;
+    }
+
+    // DE WEG //
+    // Straat-SVG bovenaan (verschoven met de parallax), daaronder loopt het
+    // asfalt door als effen grijs, zodat de weg meegroeit met de inhoud.
+    &__road {
+        --mk-road-shift: 0px;
+        --mk-street-top: calc(28.3 * var(--mk-px)); // ruimte boven de bomen voor de wals
+        --mk-slider-line: rgba(255, 255, 255, 0.35);
+
+        position: relative;
+        overflow: hidden;
+        margin-top: $spacing-s;
+        // Tot onder de middenstreep, daar beginnen de streepjes naar de kaartjes
+        padding-top: calc(274 * var(--mk-px));
+        padding-bottom: $spacing-xl;
+        background:
+            url("../../assets/images/tijdlijn-street.svg") var(--mk-road-shift) var(--mk-street-top) / calc(1920 * var(--mk-px)) auto repeat-x,
+            linear-gradient(to bottom, transparent calc(151.9 * var(--mk-px)), #{$color-grey} calc(151.9 * var(--mk-px)));
+    }
+
+    // DE WALS //
+    &__machine {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        width: calc(370 * var(--mk-px));
+        pointer-events: none;
+        transform: translateX(var(--mk-machine-x, 0px));
+        transition: transform 0.15s linear;
+
+        // Inrijden als het blok in beeld komt
+        &.is-intro {
+            transition: transform 2s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+    }
+
+    &__machine-body {
+        display: block;
+        width: 100%;
+        height: auto;
+        transform-origin: 50% 100%;
+    }
+
+    // Trillen tijdens het rijden
+    &__machine.is-driving &__machine-body {
+        animation: mk-tijdlijn-rumble 0.16s linear infinite;
+    }
+
+    // Rookwolkjes uit de uitlaat (linksboven), alleen tijdens het rijden
+    &__smoke {
+        position: absolute;
+        top: 15%;
+        left: 12%;
+
+        i {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(16 * var(--mk-px));
+            height: calc(16 * var(--mk-px));
+            border-radius: 50%;
+            background-color: rgba($color-grey, 0.45);
+            opacity: 0;
+        }
+    }
+
+    &__machine.is-driving &__smoke i {
+        animation: mk-tijdlijn-smoke 0.9s ease-out infinite;
+
+        &:nth-child(2) { animation-delay: 0.3s; }
+        &:nth-child(3) { animation-delay: 0.6s; }
+    }
+
+    // MIJLPALEN //
+    &__track {
+        // Ruimte boven de kaartjes voor de streepjes vanaf de weg
+        padding-top: calc(30 * var(--mk-px));
+        list-style: none;
+    }
+
+    &__item {
+        position: relative;
+        width: clamp(11.25rem, 10.898rem + 1.502vw, 12.25rem); // 180 -> 196px
+        min-height: 78px;
+        padding: 12px 15px 14px;
+        border-radius: $custom-radius;
+        background-color: rgba($color-white, 0.28);
+        color: $color-white;
+        transition: background-color 0.4s ease, transform 0.4s ease;
+
+        // Streepje van de weg naar het kaartje
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            width: 2px;
+            height: calc(30 * var(--mk-px));
+            background-color: rgba($color-white, 0.45);
+            transform: translateX(-50%);
+            transition: background-color 0.4s ease;
+        }
+
+        // Het kaartje waar de wals bij is
+        &.is-active {
+            background-color: $color-primary;
+            transform: translateY(-3px);
+
+            &::before {
+                background-color: $color-primary;
+            }
+        }
+    }
+
+    &__item-titel {
+        font-family: $font-family-body;
+        font-size: $font-size-normal;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    &__item-tekst {
+        margin-top: 2px;
+        font-size: $font-size-small;
+        line-height: 1.4;
+    }
+
+    &__road .mk-slider__nav {
+        margin-top: $spacing-xl;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__machine,
+        &__machine.is-intro,
+        &__item {
+            transition: none;
+        }
+
+        &__machine.is-driving &__machine-body,
+        &__machine.is-driving &__smoke i {
+            animation: none;
+        }
+    }
+}
+
+@keyframes mk-tijdlijn-rumble {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-1.5px) rotate(-0.3deg); }
+}
+
+// Wolkje drijft naar achteren en omhoog (de wals rijdt naar rechts)
+@keyframes mk-tijdlijn-smoke {
+    0%   { opacity: 0.8; transform: translate(0, 0) scale(0.4); }
+    100% { opacity: 0;   transform: translate(-28px, -36px) scale(1.8); }
+}

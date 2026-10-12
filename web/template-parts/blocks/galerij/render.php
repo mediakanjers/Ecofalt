@@ -8,7 +8,7 @@
         return;
     }
 
-    $classes = ['mk-galerij'];
+    $classes = ['mk-galerij', 'mk-slider'];
     if (!empty($block['className'])) $classes[] = $block['className'];
 
     $anchor = !empty($block['anchor']) ? ' id="' . esc_attr($block['anchor']) . '"' : '';
@@ -20,9 +20,9 @@
     $fancybox_groep = 'galerij-' . sanitize_html_class($block['id'] ?? wp_unique_id());
 ?>
 
-<section<?php echo $anchor; ?> class="<?php echo esc_attr(implode(' ', $classes)); ?>">
-    <div class="mk-galerij__viewport">
-        <div class="mk-galerij__track" tabindex="0" role="region" aria-label="<?php esc_attr_e('Fotogalerij', 'mk'); ?>">
+<section<?php echo $anchor; ?> class="<?php echo esc_attr(implode(' ', $classes)); ?>" data-mk-slider>
+    <div class="mk-slider__viewport">
+        <div class="mk-slider__track" data-mk-slider-track tabindex="0" role="region" aria-label="<?php esc_attr_e('Fotogalerij', 'mk'); ?>">
             <?php foreach ($fotos as $foto):
                 $afbeelding = mk_image($foto, 'large', [
                     'class'     => 'mk-galerij__image',
@@ -31,7 +31,7 @@
                     'draggable' => 'false',
                 ]);
             ?>
-                <figure class="mk-galerij__slide">
+                <figure class="mk-galerij__slide" data-mk-slide>
                     <?php if ($is_preview): ?>
                         <?php echo $afbeelding; ?>
                     <?php else: ?>
@@ -49,14 +49,5 @@
         </div>
     </div>
 
-    <div class="mk-galerij__nav">
-        <div class="mk-galerij__thumb">
-            <button type="button" class="mk-galerij__button mk-galerij__button--prev" data-mk-galerij-prev>
-                <span class="screen-reader-text"><?php esc_html_e('Vorige foto\'s', 'mk'); ?></span>
-            </button>
-            <button type="button" class="mk-galerij__button mk-galerij__button--next" data-mk-galerij-next>
-                <span class="screen-reader-text"><?php esc_html_e('Volgende foto\'s', 'mk'); ?></span>
-            </button>
-        </div>
-    </div>
+    <?php get_template_part('template-parts/components/slider-nav', null, ['prev' => __('Vorige foto\'s', 'mk'), 'next' => __('Volgende foto\'s', 'mk')]); ?>
 </section>

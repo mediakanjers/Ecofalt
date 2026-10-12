@@ -1,0 +1,96 @@
+{
+    "key": "group_mk_tijdlijn",
+    "title": "Blok: Tijdlijn",
+    "fields": [
+        {
+            "key": "field_mk_tijdlijn_tab_intro",
+            "label": "Intro",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_tijdlijn_titel",
+            "label": "Titel",
+            "name": "titel",
+            "type": "text"
+        },
+        {
+            "key": "field_mk_tijdlijn_tekst",
+            "label": "Tekst",
+            "name": "tekst",
+            "type": "textarea",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mk_tijdlijn_knop",
+            "label": "Knop",
+            "name": "knop",
+            "type": "link",
+            "return_format": "array"
+        },
+        {
+            "key": "field_mk_tijdlijn_tab_items",
+            "label": "Tijdlijn",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_tijdlijn_items",
+            "label": "Mijlpalen",
+            "name": "items",
+            "type": "repeater",
+            "instructions": "Van oud naar nieuw: de bovenste staat links, de wals rijdt van links naar rechts.",
+            "layout": "table",
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_mk_tijdlijn_item_titel",
+            "button_label": "Mijlpaal toevoegen",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_mk_tijdlijn_item_titel",
+                    "label": "Titel",
+                    "name": "titel",
+                    "type": "text",
+                    "instructions": "Bijv. \"December 2013\"",
+                    "wrapper": { "width": "30" },
+                    "parent_repeater": "field_mk_tijdlijn_items"
+                },
+                {
+                    "key": "field_mk_tijdlijn_item_tekst",
+                    "label": "Tekst",
+                    "name": "tekst",
+                    "type": "textarea",
+                    "rows": 2,
+                    "new_lines": "",
+                    "wrapper": { "width": "70" },
+                    "parent_repeater": "field_mk_tijdlijn_items"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/tijdlijn"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Tijdlijn-blok (mk/tijdlijn)",
+    "show_in_rest": 0,
+    "modified": 1791800148
+}

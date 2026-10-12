@@ -1,0 +1,147 @@
+// =============================================================================
+// Slider-component — gedeeld door o.a. Galerij en Tijdlijn (JS: assets/js/slider.js)
+// Native horizontaal scrollen met snap; slides lijnen uit op de contentbreedte
+// (1326px) en piepen links/rechts voorbij tot 1560px.
+// Navigatie: lijn met groen blokje (vorige/volgende) dat meeschuift en sleepbaar is.
+//
+// <div class="mk-slider" data-mk-slider>
+//   <div class="mk-slider__viewport">
+//     <div class="mk-slider__track" data-mk-slider-track> <div data-mk-slide>...</div> </div>
+//   </div>
+//   <div class="mk-slider__nav" data-mk-slider-nav>
+//     <div class="mk-slider__thumb" data-mk-slider-thumb>
+//       <button class="mk-slider__button mk-slider__button--prev" data-mk-slider-prev>
+//       <button class="mk-slider__button mk-slider__button--next" data-mk-slider-next>
+// =============================================================================
+
+$slider-content: 1326px;
+$slider-viewport: 1560px;
+
+.mk-slider {
+    // Tot waar de slides zichtbaar zijn (daarbuiten afgeknipt)
+    &__viewport {
+        max-width: $slider-viewport;
+        margin-inline: auto;
+    }
+
+    &__track {
+        // Eerste slide lijnt uit met de content, of met de gutter op kleine schermen
+        --mk-slider-inset: max(var(--mk-gutter), calc((100% - #{$slider-content}) / 2));
+
+        position: relative; // offsetLeft van de slides t.o.v. de track (slider.js)
+        display: flex;
+        gap: var(--mk-slider-gap, clamp(1rem, 0.6rem + 1.7vw, 1.875rem));
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        padding-inline: var(--mk-slider-inset);
+        scroll-padding-inline: var(--mk-slider-inset);
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &:focus-visible {
+            outline-offset: -3px;
+        }
+
+        // Slepen met de muis
+        @media (pointer: fine) {
+            cursor: grab;
+        }
+
+        > [data-mk-slide] {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+        }
+
+        img {
+            -webkit-user-drag: none;
+            user-select: none;
+        }
+    }
+
+    // Tijdens het slepen (slides of blokje): geen snap, geen tekstselectie
+    &.is-dragging &__track {
+        cursor: grabbing;
+        scroll-snap-type: none;
+        user-select: none;
+    }
+
+    &.is-dragging &__thumb {
+        cursor: grabbing;
+        transition: none;
+    }
+
+    // NAVIGATIE //
+    &__nav {
+        @include container($slider-content);
+        position: relative;
+        margin-top: $spacing-l;
+        cursor: pointer; // klik op de lijn springt erheen
+
+        // Niets te scrollen: geen navigatie
+        &[hidden] {
+            display: none;
+        }
+
+        // De lijn, alleen binnen de content (container-padding niet meegerekend)
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: var(--mk-gutter);
+            right: var(--mk-gutter);
+            height: 1px;
+            background-color: var(--mk-slider-line, #{$color-light-grey});
+        }
+    }
+
+    &__thumb {
+        position: relative;
+        display: flex;
+        width: fit-content;
+        background-color: $color-primary;
+        cursor: grab;
+        touch-action: none; // slepen met de vinger i.p.v. pagina scrollen
+        transition: transform 0.2s ease-out;
+    }
+
+    // Mobiel 44px (tikvriendelijk), desktop compacter zoals het ontwerp
+    &__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: $color-white;
+        cursor: pointer;
+        transition: background-color $custom-transition, opacity $custom-transition;
+
+        @include mq(md) {
+            width: 32px;
+            height: 32px;
+        }
+
+        &::before {
+            @include icon-mask($icon-chevron-left, 18px);
+        }
+
+        &--next::before {
+            mask-image: $icon-chevron-right;
+        }
+
+        &:hover:not(:disabled) {
+            background-color: $color-dark-green;
+        }
+
+        &:disabled {
+            cursor: default;
+            opacity: 0.45;
+        }
+    }
+}

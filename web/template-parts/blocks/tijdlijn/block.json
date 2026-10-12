@@ -1,0 +1,19 @@
+{
+  "name": "mk/tijdlijn",
+  "title": "Tijdlijn",
+  "description": "Titel, tekst en knop met een tijdlijn-slider over de weg, waar de wals over meerijdt",
+  "category": "mediakanjers",
+  "icon": "clock",
+  "keywords": ["tijdlijn", "historie", "mijlpalen", "slider", "wals"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}
