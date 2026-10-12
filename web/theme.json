@@ -179,6 +179,7 @@
     "custom": {
       "gutter": "clamp(1.25rem, 0.8099rem + 1.8779vw, 2.5rem)",
       "radius": "10px",
+      "radiusImage": "13px",
       "transition": "0.25s ease",
       "shadow": {
         "header": "0 2px 12px rgba(0, 0, 0, 0.08)",

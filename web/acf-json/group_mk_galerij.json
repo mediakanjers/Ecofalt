@@ -1,0 +1,52 @@
+{
+    "key": "group_mk_galerij",
+    "title": "Blok: Galerij slider",
+    "fields": [
+        {
+            "key": "field_mk_galerij_galerij",
+            "label": "Foto's",
+            "name": "galerij",
+            "type": "gallery",
+            "instructions": "Sleep om de volgorde te wijzigen. Foto's worden bijgesneden tot 422 x 330 (liggend).",
+            "required": 1,
+            "return_format": "id",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all",
+            "min": 1,
+            "mime_types": "jpg,jpeg,png,webp"
+        },
+        {
+            "key": "field_mk_galerij_achtergrond",
+            "label": "Achtergrond",
+            "name": "achtergrond",
+            "type": "button_group",
+            "choices": {
+                "off-white": "Gebroken wit",
+                "white": "Wit"
+            },
+            "default_value": "off-white",
+            "return_format": "value",
+            "layout": "horizontal"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/galerij"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Galerij slider-blok (mk/galerij)",
+    "show_in_rest": 0,
+    "modified": 1791797555
+}

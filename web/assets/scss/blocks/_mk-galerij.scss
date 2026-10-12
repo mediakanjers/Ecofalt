@@ -1,0 +1,135 @@
+// =============================================================================
+// Blok: Galerij slider (mk/galerij)
+// Native horizontaal scrollen met snap. Foto's lijnen uit op de contentbreedte
+// van 1326px (gelijk aan de hero-kaarten) en piepen links/rechts ±87px voorbij.
+// Ontwerp (1920): foto 422 x 330, radius 13px, 30px tussenruimte.
+// Navigatie: grijze lijn met groen blokje (vorige/volgende) dat meeschuift.
+// =============================================================================
+
+$galerij-content: 1326px;
+$galerij-viewport: 1560px;
+
+.mk-galerij {
+    @include section-spacing;
+
+    &--off-white {
+        background-color: $color-off-white;
+    }
+
+    &--white {
+        background-color: $color-white;
+    }
+
+    // Tot waar de foto's zichtbaar zijn (daarbuiten afgeknipt)
+    &__viewport {
+        max-width: $galerij-viewport;
+        margin-inline: auto;
+    }
+
+    &__track {
+        // Eerste foto lijnt uit met de content, of met de gutter op kleine schermen
+        --mk-galerij-inset: max(var(--mk-gutter), calc((100% - #{$galerij-content}) / 2));
+
+        display: flex;
+        gap: clamp(1rem, 0.6rem + 1.7vw, 1.875rem);
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        padding-inline: var(--mk-galerij-inset);
+        scroll-padding-inline: var(--mk-galerij-inset);
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &:focus-visible {
+            outline-offset: -3px;
+        }
+    }
+
+    &__slide {
+        flex: 0 0 auto;
+        width: clamp(16.25rem, 75vw, 26.375rem); // max 422px
+        aspect-ratio: 422 / 330;
+        margin: 0;
+        overflow: hidden;
+        border-radius: $custom-radius-image;
+        scroll-snap-align: start;
+        background-color: $color-light-grey;
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    // NAVIGATIE //
+    &__nav {
+        @include container($galerij-content);
+        position: relative;
+        margin-top: $spacing-l;
+
+        // Zonder iets om te scrollen (weinig foto's) geen navigatie
+        &[hidden] {
+            display: none;
+        }
+
+        // De lijn, alleen binnen de content (container-padding niet meegerekend)
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: var(--mk-gutter);
+            right: var(--mk-gutter);
+            height: 1px;
+            background-color: $color-light-grey;
+        }
+    }
+
+    &__thumb {
+        position: relative;
+        display: flex;
+        width: fit-content;
+        background-color: $color-primary;
+        transition: transform 0.2s ease-out;
+    }
+
+    // Mobiel 44px (tikvriendelijk), desktop compacter zoals het ontwerp
+    &__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: $color-white;
+        cursor: pointer;
+        transition: background-color $custom-transition, opacity $custom-transition;
+
+        @include mq(md) {
+            width: 32px;
+            height: 32px;
+        }
+
+        &::before {
+            @include icon-mask($icon-chevron-left, 18px);
+        }
+
+        &--next::before {
+            mask-image: $icon-chevron-right;
+        }
+
+        &:hover:not(:disabled) {
+            background-color: $color-dark-green;
+        }
+
+        &:disabled {
+            cursor: default;
+            opacity: 0.45;
+        }
+    }
+}

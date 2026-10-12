@@ -11,3 +11,11 @@
 .wp-block-column:empty {
     display: none;
 }
+
+// Melding in de editor als een blok nog leeg is
+.mk-block-placeholder {
+    @include container;
+    padding-block: $spacing-l;
+    color: $color-grey;
+    text-align: center;
+}

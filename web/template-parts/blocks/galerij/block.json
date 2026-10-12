@@ -1,0 +1,19 @@
+{
+  "name": "mk/galerij",
+  "title": "Galerij slider",
+  "description": "Horizontale fotoslider met navigatielijn",
+  "category": "mediakanjers",
+  "icon": "images-alt2",
+  "keywords": ["galerij", "slider", "foto", "afbeeldingen"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}
