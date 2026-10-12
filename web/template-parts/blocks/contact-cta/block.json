@@ -1,0 +1,19 @@
+{
+  "name": "mk/contact-cta",
+  "title": "Contact (formulier)",
+  "description": "Donkergroene band met titel, tekst, Gravity Forms-formulier en foto",
+  "category": "mediakanjers",
+  "icon": "email-alt",
+  "keywords": ["contact", "formulier", "cta", "gravity forms"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}

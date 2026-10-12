@@ -87,4 +87,15 @@
         $base = $video['hash'] ? ['h' => $video['hash']] : [];
         return add_query_arg(array_merge($base, ['dnt' => 1], $params), 'https://player.vimeo.com/video/' . $video['id']);
     }
+
+    // ACF: keuzelijst "Formulier" (o.a. Contact-blok) vullen met de formulieren uit Gravity Forms
+    add_filter('acf/load_field/key=field_mk_contact_cta_formulier', function($field) {
+        $field['choices'] = [];
+        if (class_exists('GFAPI')) {
+            foreach (GFAPI::get_forms() as $form) {
+                $field['choices'][$form['id']] = $form['title'];
+            }
+        }
+        return $field;
+    });
 ?>

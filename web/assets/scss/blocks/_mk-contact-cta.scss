@@ -1,0 +1,129 @@
+// =============================================================================
+// Blok: Contact (mk/contact-cta)
+// Donkergroene band, achtergrondfoto die van links naar het groen vervaagt,
+// gecentreerde titel + tekst, Gravity Forms-formulier links en foto rechts.
+// Ontwerp (1920): inhoud 1100 breed, formulier 650, foto 422 x 300.
+// =============================================================================
+
+.mk-contact-cta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    margin-bottom: var(--mk-section-spacing);
+    padding-block: $spacing-section;
+    background-color: $color-dark-green;
+
+    // Als laatste blok direct op de footer aansluiten
+    .entry-content > &:last-child {
+        margin-bottom: 0;
+    }
+
+    // Achtergrondfoto: mobiel van boven naar beneden, vanaf md van links naar rechts vervagend
+    &__achtergrond {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        mask-image: linear-gradient(to bottom, #000 0%, transparent 70%);
+
+        @include mq(md) {
+            right: auto;
+            width: 55%;
+            mask-image: linear-gradient(to right, #000 25%, transparent 100%);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+    }
+
+    &__container {
+        @include container(1100px);
+    }
+
+    &__intro {
+        max-width: 1000px;
+        margin-inline: auto;
+        text-align: center;
+    }
+
+    &__tekst {
+        max-width: 920px;
+        margin: $spacing-s auto 0;
+    }
+
+    &__inhoud {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-l;
+        margin-top: $spacing-l;
+    }
+
+    &--met-foto &__inhoud {
+        @include mq(md) {
+            grid-template-columns: minmax(0, 650fr) minmax(0, 422fr);
+            gap: $spacing-m;
+            align-items: start;
+        }
+    }
+
+    &__foto img {
+        width: 100%;
+        aspect-ratio: 422 / 300;
+        border-radius: $custom-radius;
+        object-fit: cover;
+    }
+
+    &__melding {
+        padding: $spacing-l;
+        border: 1px dashed rgba($color-white, 0.4);
+        border-radius: $custom-radius;
+        text-align: center;
+    }
+
+    // FORMULIER op de donkere achtergrond //
+    .gform_wrapper {
+        .gform_fields {
+            gap: 10px;
+        }
+
+        .gfield {
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            input[type="number"],
+            input[type="url"],
+            textarea,
+            select {
+                background-color: $color-off-white;
+            }
+
+            // Gravity Forms geeft 10 regels mee; ontwerp ±156px
+            textarea {
+                height: 9.75rem;
+                min-height: 0;
+            }
+        }
+
+        // Verstuurknop rechts onder het formulier
+        .gform-footer,
+        .gform_footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: $spacing-s;
+        }
+
+        .gfield_validation_message,
+        .gform_validation_errors .gform_submission_error {
+            color: #ffb3b3;
+        }
+    }
+
+    .gform_confirmation_message {
+        color: $color-white;
+        font-size: $font-size-intro;
+        text-align: center;
+    }
+}

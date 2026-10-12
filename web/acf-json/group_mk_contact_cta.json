@@ -1,0 +1,74 @@
+{
+    "key": "group_mk_contact_cta",
+    "title": "Blok: Contact (formulier)",
+    "fields": [
+        {
+            "key": "field_mk_contact_cta_titel",
+            "label": "Titel",
+            "name": "titel",
+            "type": "text"
+        },
+        {
+            "key": "field_mk_contact_cta_tekst",
+            "label": "Tekst",
+            "name": "tekst",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mk_contact_cta_formulier",
+            "label": "Formulier",
+            "name": "formulier",
+            "type": "select",
+            "instructions": "Formulieren uit Gravity Forms. Velden op halve breedte (Veldgrootte: Half) komen naast elkaar.",
+            "choices": {},
+            "allow_null": 1,
+            "ui": 0,
+            "return_format": "value",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_contact_cta_afbeelding",
+            "label": "Foto rechts",
+            "name": "afbeelding",
+            "type": "image",
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": "jpg,jpeg,png,webp",
+            "wrapper": { "width": "25" }
+        },
+        {
+            "key": "field_mk_contact_cta_achtergrond",
+            "label": "Achtergrondfoto (optioneel)",
+            "name": "achtergrond",
+            "type": "image",
+            "instructions": "Vervaagt van links naar het groen.",
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": "jpg,jpeg,png,webp",
+            "wrapper": { "width": "25" }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/contact-cta"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Contact-blok (mk/contact-cta)",
+    "show_in_rest": 0,
+    "modified": 1791808015
+}
