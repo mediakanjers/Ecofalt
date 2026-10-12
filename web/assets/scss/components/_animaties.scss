@@ -1,0 +1,86 @@
+// =============================================================================
+// Speelse animaties (JS: assets/js/animaties.js)
+// Verbergen gebeurt alleen met .js op <html> én zonder "verminder beweging":
+// zonder JS of met reduced motion is alles direct en volledig zichtbaar.
+// =============================================================================
+
+// STEENTJES — lichte granulaatsteentjes in de achtergrond, met diepte (2 lagen)
+.mk-steentjes {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+
+    &__laag {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        will-change: transform;
+    }
+
+    // Een tegel extra hoogte, zodat er tijdens het verschuiven nooit een gat valt
+    &__laag--groot {
+        height: calc(100% + 720px);
+        background: url("../../assets/images/steentjes-groot.svg") 0 0 / 720px 720px repeat;
+    }
+
+    &__laag--klein {
+        height: calc(100% + 460px);
+        background: url("../../assets/images/steentjes-klein.svg") 130px 0 / 460px 460px repeat;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    // HAAK TEKENT ZICH — bovenlijn + zijkanten van links naar rechts, daarna de pootjes
+    .js .mk-bracket {
+        &::before,
+        &::after {
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        &::after {
+            transition-delay: 0.75s;
+            transition-duration: 0.35s;
+        }
+
+        &.is-zichtbaar::before,
+        &.is-zichtbaar::after {
+            clip-path: inset(0 0 0 0);
+        }
+    }
+
+    // MENGSEL-CIJFERS PLOPPEN — een voor een, met een klein veertje
+    .js .mk-mengsels__lijst {
+        .mk-mengsels__nummer {
+            transform: scale(0);
+            transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        > li:nth-child(2) .mk-mengsels__nummer { transition-delay: 0.15s; }
+        > li:nth-child(3) .mk-mengsels__nummer { transition-delay: 0.3s; }
+        > li:nth-child(4) .mk-mengsels__nummer { transition-delay: 0.45s; }
+        > li:nth-child(5) .mk-mengsels__nummer { transition-delay: 0.6s; }
+        > li:nth-child(n + 6) .mk-mengsels__nummer { transition-delay: 0.75s; }
+
+        &.is-zichtbaar .mk-mengsels__nummer {
+            transform: scale(1);
+        }
+    }
+
+    // ICOON WIEBELT bij hover over een kaartje
+    .mk-icoon-kaart:hover .mk-icoon-kaart__icoon img,
+    .mk-toepassingen__kaart:hover .mk-toepassingen__icoon img {
+        animation: mk-wiebel 0.6s ease-in-out;
+    }
+}
+
+@keyframes mk-wiebel {
+    0%, 100% { transform: rotate(0deg); }
+    20%      { transform: rotate(-8deg); }
+    40%      { transform: rotate(6deg); }
+    60%      { transform: rotate(-4deg); }
+    80%      { transform: rotate(2deg); }
+}

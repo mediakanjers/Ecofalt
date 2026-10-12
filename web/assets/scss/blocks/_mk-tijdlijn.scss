@@ -191,12 +191,22 @@
         transform: scaleX(-1);
     }
 
-    // Trillen tijdens het rijden
+    // MOTOR //
+    // Stationair (stilstaand, in beeld): lichte trilling en af en toe een wolkje.
+    // Rijdend: sneller trillen en roken. Slepen (gas geven): alle 5 wolkjes, groter en sneller.
+    &.is-in-beeld &__machine:not(.is-driving):not(.is-grabbed) &__machine-body {
+        animation: mk-tijdlijn-stationair 0.22s linear infinite;
+    }
+
     &__machine.is-driving &__machine-body {
         animation: mk-tijdlijn-rumble 0.16s linear infinite;
     }
 
-    // Rookwolkjes uit de uitlaat (linksboven), alleen tijdens het rijden
+    &__machine.is-grabbed &__machine-body {
+        animation: mk-tijdlijn-rumble 0.11s linear infinite;
+    }
+
+    // Rookwolkjes uit de uitlaat (linksboven)
     &__smoke {
         position: absolute;
         top: 15%;
@@ -214,11 +224,52 @@
         }
     }
 
-    &__machine.is-driving &__smoke i {
+    &.is-in-beeld &__machine:not(.is-driving):not(.is-grabbed) &__smoke i:nth-child(-n + 3) {
+        animation: mk-tijdlijn-smoke-stationair 2.4s ease-out infinite;
+
+        &:nth-child(2) { animation-delay: 0.8s; }
+        &:nth-child(3) { animation-delay: 1.6s; }
+    }
+
+    &__machine.is-driving &__smoke i:nth-child(-n + 3) {
         animation: mk-tijdlijn-smoke 0.9s ease-out infinite;
 
         &:nth-child(2) { animation-delay: 0.3s; }
         &:nth-child(3) { animation-delay: 0.6s; }
+    }
+
+    // :nth-child(n) = even specifiek als de rijregel hierboven, en staat later: gas wint
+    &__machine.is-grabbed &__smoke i:nth-child(n) {
+        animation: mk-tijdlijn-smoke-gas 0.6s ease-out infinite;
+
+        &:nth-child(2) { animation-delay: 0.12s; }
+        &:nth-child(3) { animation-delay: 0.24s; }
+        &:nth-child(4) { animation-delay: 0.36s; }
+        &:nth-child(5) { animation-delay: 0.48s; }
+    }
+
+    // TOET TOET — wolkje naast de cabine, boven de voorste wals (boven de wals knipt de weg af)
+    &__toet {
+        position: absolute;
+        top: 12%;
+        left: 76%;
+        z-index: 3;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background-color: $color-white;
+        box-shadow: 0 6px 18px rgba($color-black, 0.15);
+        color: $color-dark-green;
+        font-family: $font-family-heading;
+        font-size: $font-size-normal;
+        font-weight: 700;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, 10px) scale(0.5);
+    }
+
+    &__machine.is-toet &__toet {
+        animation: mk-tijdlijn-toet 1.4s ease-out forwards;
     }
 
     // MIJLPALEN //
@@ -307,8 +358,13 @@
             animation: none;
         }
 
-        &__machine.is-driving &__machine-body,
-        &__machine.is-driving &__smoke i,
+        // Motor, rook en toet: altijd uit (!important wint van de specifiekere toestanden)
+        &__machine-body,
+        &__smoke i,
+        &__toet {
+            animation: none !important; // stylelint-disable-line declaration-no-important
+        }
+
         &.is-hinting &__hint,
         &__hint-pijlen::before,
         &__hint-pijlen::after {
@@ -348,4 +404,30 @@
 @keyframes mk-tijdlijn-reached {
     0%   { box-shadow: 0 0 0 0 rgba($color-primary, 0.7); }
     100% { box-shadow: 0 0 0 14px rgba($color-primary, 0); }
+}
+
+// Stationair draaiende motor: heel lichte trilling
+@keyframes mk-tijdlijn-stationair {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-0.6px); }
+}
+
+// Stationair: klein, licht wolkje dat langzaam opstijgt
+@keyframes mk-tijdlijn-smoke-stationair {
+    0%   { opacity: 0.5; transform: translate(0, 0) scale(0.3); }
+    100% { opacity: 0;   transform: translate(-10px, -34px) scale(1.2); }
+}
+
+// Gas geven (slepen): grotere, donkere wolken die verder wegwaaien
+@keyframes mk-tijdlijn-smoke-gas {
+    0%   { opacity: 0.95; transform: translate(0, 0) scale(0.5); }
+    100% { opacity: 0;    transform: translate(-40px, -46px) scale(2.6); }
+}
+
+@keyframes mk-tijdlijn-toet {
+    0%   { opacity: 0; transform: translate(-50%, 10px) scale(0.5); }
+    15%  { opacity: 1; transform: translate(-50%, -4px) scale(1.1); }
+    25%  { opacity: 1; transform: translate(-50%, -4px) scale(1); }
+    80%  { opacity: 1; transform: translate(-50%, -12px) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -22px) scale(0.95); }
 }

@@ -9,6 +9,8 @@
 // - bij in beeld komen rijdt de wals van buiten het scherm naar zijn startplek
 // - de wals zelf is te slepen (muis + touch): zo rijd je door de tijd
 // - ballonnetje met aanwijzing na de intro, tot de eerste interactie
+// - motor draait stationair zolang de wals in beeld is; slepen = gas geven (meer rook)
+// - klik op de wals: toet toet!
 document.addEventListener('DOMContentLoaded', function () {
     var MACHINE_WIDTH = 370;     // breedte van tijdlijn-machine.svg op schaal 1
     var OVERHANG = 134;          // ontwerp: wals start 134px links van de content
@@ -218,9 +220,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (e.button !== 0 || parked) return;
             var r = route();
             var max = maxScroll();
-            if (max <= 1 || r.end <= r.start) return;
+            // Niets te scrollen: alleen toeteren, niet rijden
+            var ratio = max > 1 && r.end > r.start ? max / (r.end - r.start) : 0;
 
-            grab = { id: e.pointerId, x: e.clientX, start: track.scrollLeft, ratio: max / (r.end - r.start) };
+            grab = { id: e.pointerId, x: e.clientX, start: track.scrollLeft, ratio: ratio, tijd: Date.now() };
             machine.setPointerCapture(e.pointerId);
             machine.classList.add('is-grabbed');
             slider.classList.add('is-dragging');
@@ -235,12 +238,26 @@ document.addEventListener('DOMContentLoaded', function () {
         function release(e) {
             if (!grab || e.pointerId !== grab.id) return;
             var dx = e.clientX - grab.x;
+            var klik = Math.abs(dx) < 4 && Date.now() - grab.tijd < 500;
             grab = null;
+            if (klik) toet();
             machine.classList.remove('is-grabbed');
             // Eerst snappen (bij een niet-vrije slider), dan pas het slepen afronden
             slider.dispatchEvent(new CustomEvent('mk-slider:snap', { detail: { direction: dx > 0 ? 1 : (dx < 0 ? -1 : 0) } }));
             slider.classList.remove('is-dragging');
         }
+
+        // TOET TOET — wolkje boven de cabine (CSS: .is-toet), opnieuw te starten bij elke klik
+        function toet() {
+            if (reduceMotion) return;
+            machine.classList.remove('is-toet');
+            void machine.offsetWidth; // animatie opnieuw laten beginnen
+            machine.classList.add('is-toet');
+        }
+
+        machine.addEventListener('animationend', function (e) {
+            if (e.animationName === 'mk-tijdlijn-toet') machine.classList.remove('is-toet');
+        });
 
         machine.addEventListener('pointerup', release);
         machine.addEventListener('pointercancel', release);
@@ -254,6 +271,13 @@ document.addEventListener('DOMContentLoaded', function () {
         items.forEach(function (item) {
             item.classList.add('is-upcoming');
         });
+
+        // STATIONAIR — motor (trilling + wolkjes) alleen laten draaien als de weg in beeld is
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (entries) {
+                tijdlijn.classList.toggle('is-in-beeld', entries[0].isIntersecting);
+            }).observe(road);
+        }
 
         // INTRO — wals buiten beeld parkeren en laten inrijden zodra de weg in beeld komt
         if (!reduceMotion && 'IntersectionObserver' in window) {

@@ -42,8 +42,12 @@
                 <?php // Binnenste laag draait om bij terugrijden (.is-reversed), rook draait mee ?>
                 <div class="mk-tijdlijn__machine-inner">
                     <div class="mk-tijdlijn__machine-body"><?php echo $machine; ?></div>
-                    <span class="mk-tijdlijn__smoke"><i></i><i></i><i></i></span>
+                    <?php // Rook: stationair 3 wolkjes, rijdend sneller, slepend alle 5 en groter ?>
+                    <span class="mk-tijdlijn__smoke"><i></i><i></i><i></i><i></i><i></i></span>
                 </div>
+
+                <?php // Klik op de wals: toet toet! ?>
+                <span class="mk-tijdlijn__toet"><?php esc_html_e('Toet toet!', 'mk'); ?></span>
 
                 <?php // Aanwijzing tot de eerste interactie (assets/js/tijdlijn.js) ?>
                 <span class="mk-tijdlijn__hint">
