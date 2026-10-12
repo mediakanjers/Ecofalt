@@ -1,72 +1,90 @@
+// =============================================================================
+// Blok: Kolommen (mk/kolommen, uit mkbase) — styling voor Ecofalt, mobile first.
+// Mobiel alles onder elkaar, vanaf sm 3/4 kolommen als 2, vanaf md de gekozen verhouding.
+// Voorbeeld ontwerp "Wat is Ecofalt": 50/50, links titel + tekst + knop, rechts afbeelding.
+// =============================================================================
+
+$kolommen-paddings: (
+    klein: $spacing-m,
+    normaal: $spacing-l,
+    groot: $spacing-xl,
+);
+
 .mk-kolommen-outer {
+    // Witruimte buiten een eventuele kleurband, zodat die band strak blijft
+    margin-bottom: var(--mk-section-spacing);
     background-color: var(--mk-kolommen-bg-breed, transparent);
 
-    &:not(:last-child) {
-        margin-bottom: var(--mk-section-spacing);
-    }
-
     &--breed {
-        width: 100vw;
         position: relative;
         left: 50%;
-        right: 50%;
+        width: 100vw;
         margin-left: -50vw;
-        margin-right: -50vw;
     }
 
-    &[data-padding="klein"]   { padding-top: 20px; padding-bottom: 20px; }
-    &[data-padding="normaal"] { padding-top: 40px; padding-bottom: 40px; }
-    &[data-padding="groot"]   { padding-top: 64px; padding-bottom: 64px; }
+    @each $naam, $ruimte in $kolommen-paddings {
+        &[data-padding="#{$naam}"] {
+            padding-block: $ruimte;
+        }
+    }
 }
 
 .mk-kolommen {
-    max-width: $layout-content-size;
-    width: calc(100% - 2 * var(--mk-gutter));
-    margin: 0 auto;
+    @include container;
     display: grid;
-    gap: 30px;
+    grid-template-columns: 1fr;
+    gap: $spacing-l clamp(2rem, 1.3rem + 3vw, 5rem); // kolomafstand 32px -> 80px
     align-items: start;
     background-color: var(--mk-kolommen-bg-grid, transparent);
     color: var(--mk-kolommen-color, inherit);
 
-    &[data-verhouding="100"]         { grid-template-columns: 1fr; }
-    &[data-verhouding="50-50"]       { grid-template-columns: 1fr 1fr; }
-    &[data-verhouding="66-33"]       { grid-template-columns: 2fr 1fr; }
-    &[data-verhouding="33-66"]       { grid-template-columns: 1fr 2fr; }
-    &[data-verhouding="25-75"]       { grid-template-columns: 1fr 3fr; }
-    &[data-verhouding="75-25"]       { grid-template-columns: 3fr 1fr; }
-    &[data-verhouding="33-33-33"]    { grid-template-columns: repeat(3, 1fr); }
-    &[data-verhouding="25-50-25"]    { grid-template-columns: 1fr 2fr 1fr; }
-    &[data-verhouding="25-25-25-25"] { grid-template-columns: repeat(4, 1fr); }
+    // Met een achtergrond binnen het grid: padding i.p.v. de gutter-container
+    @each $naam, $ruimte in $kolommen-paddings {
+        &[data-padding="#{$naam}"] {
+            padding: $ruimte;
+        }
+    }
 
-    &[data-uitlijning="boven"]     { align-items: start; }
-    &[data-uitlijning="midden"]    { align-items: center; }
-    &[data-uitlijning="onder"]     { align-items: end; }
-    &[data-uitlijning="uitgerekt"] { align-items: stretch; }
+    @include mq(sm) {
+        &[data-verhouding="33-33-33"],
+        &[data-verhouding="25-25-25-25"] {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
 
-    &[data-padding="klein"]   { padding: 20px; }
-    &[data-padding="normaal"] { padding: 40px; }
-    &[data-padding="groot"]   { padding: 64px; }
+    @include mq(md) {
+        &[data-verhouding="50-50"]       { grid-template-columns: 1fr 1fr; }
+        &[data-verhouding="66-33"]       { grid-template-columns: 2fr 1fr; }
+        &[data-verhouding="33-66"]       { grid-template-columns: 1fr 2fr; }
+        &[data-verhouding="25-75"]       { grid-template-columns: 1fr 3fr; }
+        &[data-verhouding="75-25"]       { grid-template-columns: 3fr 1fr; }
+        &[data-verhouding="33-33-33"]    { grid-template-columns: repeat(3, 1fr); }
+        &[data-verhouding="25-50-25"]    { grid-template-columns: 1fr 2fr 1fr; }
+        &[data-verhouding="25-25-25-25"] { grid-template-columns: repeat(4, 1fr); }
+
+        &[data-uitlijning="midden"]    { align-items: center; }
+        &[data-uitlijning="onder"]     { align-items: end; }
+        &[data-uitlijning="uitgerekt"] { align-items: stretch; }
+    }
 
     &--rounded {
-        border-radius: 12px;
         overflow: hidden;
+        border-radius: $custom-radius;
     }
 
-    @media screen and (max-width: 768px) {
-        grid-template-columns: 1fr !important;
-    }
-
+    // KOLOM //
     &__kolom {
-        min-width: 0;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
         align-items: flex-start;
+        justify-content: flex-start;
+        min-width: 0;
 
-        &[data-padding="klein"]   { padding: 20px; }
-        &[data-padding="normaal"] { padding: 40px; }
-        &[data-padding="groot"]   { padding: 64px; }
+        @each $naam, $ruimte in $kolommen-paddings {
+            &[data-padding="#{$naam}"] {
+                padding: $ruimte;
+            }
+        }
 
         &[data-content-uitlijning="midden"] { justify-content: center; }
         &[data-content-uitlijning="onder"]  { justify-content: flex-end; }
@@ -78,30 +96,35 @@
     }
 
     &__kolom--rounded {
-        border-radius: 12px;
         overflow: hidden;
+        border-radius: $custom-radius;
     }
 
+    // Ruimte tussen de onderdelen binnen een kolom
+    &__kolom > * + * {
+        margin-top: $spacing-m;
+    }
+
+    &__kolom > * + .mk-button {
+        margin-top: $spacing-l;
+    }
+
+    // INHOUD //
     &__titel {
         color: inherit;
-        margin: 0;
     }
 
     &__tekst {
-        font-size: $font-size-normal;
-        line-height: $line-height-normal;
+        @include rich-text;
+        max-width: 640px; // prettige regellengte, ook in een brede kolom
         color: inherit;
-
-        p:last-child {
-            margin-bottom: 0;
-        }
     }
 
     &__afbeelding {
         display: block;
         width: 100%;
         height: auto;
-        border-radius: 8px;
+        border-radius: $custom-radius-image;
     }
 
     &__kolom--rounded &__afbeelding {
@@ -112,8 +135,8 @@
         position: relative;
         width: 100%;
         aspect-ratio: 16 / 9;
-        border-radius: 8px;
         overflow: hidden;
+        border-radius: $custom-radius-image;
 
         iframe {
             position: absolute;
@@ -131,10 +154,10 @@
     }
 
     &__icoon {
+        flex-shrink: 0;
         width: 32px;
         height: 32px;
         object-fit: contain;
-        flex-shrink: 0;
     }
 
     &__cijfer {
@@ -144,19 +167,15 @@
     }
 
     &__cijfer-waarde {
-        font-size: $h3-font-size;
-        font-weight: $h3-font-weight;
-        line-height: $h3-line-height;
         color: var(--mk-kolom-color, #{$color-primary});
+        font-family: $font-family-heading;
+        font-size: $h2-font-size;
+        font-weight: 700;
+        line-height: $h2-line-height;
     }
 
     &__cijfer-label {
-        font-size: $font-size-small;
         color: inherit;
-    }
-
-    // Meerdere content-types binnen één kolom krijgen wat ruimte t.o.v. elkaar.
-    &__kolom > * + * {
-        margin-top: 16px;
+        font-size: $font-size-small;
     }
 }

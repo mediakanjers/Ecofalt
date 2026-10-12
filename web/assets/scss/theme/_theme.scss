@@ -103,37 +103,7 @@ h6, .mk-h6 { font-size: $h6-font-size; line-height: $h6-line-height; }
 
 // Opgemaakte tekst uit een WYSIWYG-veld: <div class="mk-text">...</div>
 .mk-text {
-    > * + * {
-        margin-top: 1em;
-    }
-
-    > * + :is(h2, h3, h4, h5, h6) {
-        margin-top: 1.5em;
-    }
-
-    ul,
-    ol {
-        padding-left: 1.25em;
-    }
-
-    li + li {
-        margin-top: 0.25em;
-    }
-
-    a:not([class]) {
-        color: $color-primary;
-        text-decoration: underline;
-        text-underline-offset: 0.2em;
-        transition: color $custom-transition;
-
-        &:hover {
-            color: $color-dark-green;
-        }
-    }
-
-    strong {
-        font-weight: 600;
-    }
+    @include rich-text;
 }
 
 // Tekst op een donkere achtergrond (titels en tekst wit)

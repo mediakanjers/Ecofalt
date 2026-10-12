@@ -105,3 +105,38 @@ $breakpoints: (
         color: $color-white;
     }
 }
+
+// Opgemaakte tekst uit een WYSIWYG-veld (alinea's, lijsten, links, vet)
+@mixin rich-text {
+    > * + * {
+        margin-top: 1em;
+    }
+
+    > * + :is(h2, h3, h4, h5, h6) {
+        margin-top: 1.5em;
+    }
+
+    ul,
+    ol {
+        padding-left: 1.25em;
+    }
+
+    li + li {
+        margin-top: 0.25em;
+    }
+
+    a:not([class]) {
+        color: $color-primary;
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+        transition: color $custom-transition;
+
+        &:hover {
+            color: $color-dark-green;
+        }
+    }
+
+    strong {
+        font-weight: 600;
+    }
+}
