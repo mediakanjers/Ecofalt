@@ -55,12 +55,22 @@
             "endpoint": 0
         },
         {
+            "key": "field_mk_hero_vimeo_achtergrond",
+            "label": "Achtergrondvideo – headerversie (Vimeo)",
+            "name": "vimeo_achtergrond",
+            "type": "url",
+            "instructions": "Korte versie die stil en in een loop als achtergrond afspeelt. Leeg = donkergroene achtergrond.",
+            "placeholder": "https://vimeo.com/...",
+            "wrapper": { "width": "50" }
+        },
+        {
             "key": "field_mk_hero_vimeo",
-            "label": "Vimeo-video",
+            "label": "Bedrijfsfilm – volledig (Vimeo)",
             "name": "vimeo",
             "type": "url",
-            "instructions": "Bijv. https://vimeo.com/123456789. Speelt als achtergrondvideo af en toont de knop om de film met geluid te bekijken. Leeg = donkergroene achtergrond.",
-            "placeholder": "https://vimeo.com/..."
+            "instructions": "Volledige film met geluid. Ingevuld = knop \"Bekijk de bedrijfsfilm\", die de film in een popup opent.",
+            "placeholder": "https://vimeo.com/...",
+            "wrapper": { "width": "50" }
         },
         {
             "key": "field_mk_hero_film_knoptekst",
@@ -82,7 +92,7 @@
             "label": "Achtergrondafbeelding (optioneel)",
             "name": "afbeelding",
             "type": "image",
-            "instructions": "Wordt getoond zolang de video laadt, in de editor, en zonder video.",
+            "instructions": "Wordt getoond zolang de achtergrondvideo laadt, in de editor, en zonder video.",
             "return_format": "id",
             "preview_size": "medium",
             "library": "all",
@@ -193,5 +203,5 @@
     "active": true,
     "description": "Velden voor het Hero-blok (mk/hero)",
     "show_in_rest": 0,
-    "modified": 1791795673
+    "modified": 1791797190
 }

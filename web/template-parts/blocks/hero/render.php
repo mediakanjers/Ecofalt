@@ -3,6 +3,7 @@
     $tekst        = get_field('tekst');
     $knop_1       = get_field('knop_1');
     $knop_2       = get_field('knop_2');
+    $video_bg     = mk_vimeo(get_field('vimeo_achtergrond'));
     $vimeo        = mk_vimeo(get_field('vimeo'));
     $film_tekst   = get_field('film_knoptekst') ?: __('Bekijk de bedrijfsfilm', 'mk');
     $afbeelding   = get_field('afbeelding');
@@ -11,6 +12,7 @@
     $onderkant    = get_field('onderkant') ?: 'off-white';
 
     $overlay = is_numeric($overlay) ? max(0, min(100, (int) $overlay)) : 70;
+    $titel_regels = $titel ? preg_split('/\R/', trim($titel)) : [];
 
     $classes = ['mk-hero', 'mk-hero--onder-' . sanitize_html_class($onderkant)];
     if ($kaarten) $classes[] = 'mk-hero--met-kaarten';
@@ -26,10 +28,10 @@
                 <?php echo mk_image($afbeelding, 'full', ['class' => 'mk-hero__image', 'alt' => '', 'loading' => 'eager', 'fetchpriority' => 'high']); ?>
             <?php endif; ?>
 
-            <?php // Achtergrondvideo niet in de editor laden — daar volstaat afbeelding/kleur ?>
-            <?php if ($vimeo && !$is_preview): ?>
+            <?php // Achtergrondvideo (headerversie) niet in de editor laden — daar volstaat afbeelding/kleur ?>
+            <?php if ($video_bg && !$is_preview): ?>
                 <iframe class="mk-hero__video"
-                    src="<?php echo esc_url(mk_vimeo_embed($vimeo, ['background' => 1, 'autoplay' => 1, 'loop' => 1, 'muted' => 1])); ?>"
+                    src="<?php echo esc_url(mk_vimeo_embed($video_bg, ['background' => 1, 'autoplay' => 1, 'loop' => 1, 'muted' => 1])); ?>"
                     allow="autoplay; fullscreen; picture-in-picture"
                     tabindex="-1"
                     title=""></iframe>
@@ -41,7 +43,13 @@
         <div class="mk-hero__container">
             <div class="mk-hero__content mk-on-dark">
                 <?php if ($titel): ?>
-                    <h1 class="mk-hero__title mk-bracket"><?php echo nl2br(esc_html($titel)); ?></h1>
+                    <h1 class="mk-hero__title">
+                        <?php // Haak alleen om de eerste regel, de rest volgt eronder ?>
+                        <span class="mk-bracket"><?php echo esc_html(array_shift($titel_regels)); ?></span>
+                        <?php foreach ($titel_regels as $regel): ?>
+                            <br><?php echo esc_html($regel); ?>
+                        <?php endforeach; ?>
+                    </h1>
                 <?php endif; ?>
 
                 <?php if ($tekst): ?>

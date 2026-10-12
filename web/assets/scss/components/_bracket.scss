@@ -1,34 +1,41 @@
 // =============================================================================
-// Ecofalt-haak (zoals in het logo): lijn boven de tekst, links een lange en
-// rechts een korte verticale haak. Gebruik: <h1 class="mk-bracket">...</h1>
+// Ecofalt-haak (zoals in het logo): lijn boven de tekst, links en rechts een
+// verticale lijn tot halverwege de tekst, onderaan met een kort pootje naar binnen.
+// Gebruik op een inline element binnen de titel: <h1><span class="mk-bracket">...</span></h1>
 // =============================================================================
 
 .mk-bracket {
+    --mk-bracket-line: max(2px, 0.06em);
+    --mk-bracket-top: -0.06em;     // bovenlijn ±0,27em boven de hoofdletters
+    --mk-bracket-height: 0.7em;    // zijlijnen tot ±0,43em onder de bovenkant van de hoofdletters
+    --mk-bracket-foot: 0.3em;
+
     position: relative;
     display: inline-block;
-    padding: 0.3em 0.4em 0;
+    padding-inline: 0.5em;
 
-    &::before,
+    // Bovenlijn + beide zijlijnen
+    &::before {
+        content: "";
+        position: absolute;
+        top: var(--mk-bracket-top);
+        left: 0;
+        right: 0;
+        height: var(--mk-bracket-height);
+        border: var(--mk-bracket-line) solid currentColor;
+        border-bottom: 0;
+    }
+
+    // Pootjes naar binnen onderaan de zijlijnen
     &::after {
         content: "";
         position: absolute;
-        top: 0;
-        border: 0 solid currentColor;
-    }
-
-    // Bovenlijn + lange haak links
-    &::before {
+        top: calc(var(--mk-bracket-top) + var(--mk-bracket-height) - var(--mk-bracket-line));
         left: 0;
         right: 0;
-        height: 0.9em;
-        border-top-width: 3px;
-        border-left-width: 3px;
-    }
-
-    // Korte haak rechts
-    &::after {
-        right: 0;
-        height: 0.35em;
-        border-right-width: 3px;
+        height: var(--mk-bracket-line);
+        background:
+            linear-gradient(currentColor, currentColor) left / var(--mk-bracket-foot) 100% no-repeat,
+            linear-gradient(currentColor, currentColor) right / var(--mk-bracket-foot) 100% no-repeat;
     }
 }
