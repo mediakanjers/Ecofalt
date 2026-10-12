@@ -13,6 +13,7 @@
 
 /* ===== TEMPLATE PARTS ===== */
     @import "template-parts/_404.scss";
+    @import "template-parts/_project.scss";
 
 /* ===== COMPONENTS ===== */
     /* === MENU === */
@@ -30,6 +31,7 @@
     @import "components/_bracket.scss";
     @import "components/_video-modal.scss";
     @import "components/_slider.scss";
+    @import "components/_project-kaart.scss";
 
 /* ===== BLOCKS ===== */
     @import "blocks/_mk-loop.scss";
@@ -41,3 +43,4 @@
     @import "blocks/_mk-tijdlijn.scss";
     @import "blocks/_mk-toepassingen.scss";
     @import "blocks/_mk-mengsels.scss";
+    @import "blocks/_mk-projecten.scss";

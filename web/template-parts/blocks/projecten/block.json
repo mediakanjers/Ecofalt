@@ -1,0 +1,19 @@
+{
+  "name": "mk/projecten",
+  "title": "Projecten",
+  "description": "De nieuwste projecten of een eigen selectie, als kaartjes",
+  "category": "mediakanjers",
+  "icon": "location-alt",
+  "keywords": ["projecten", "referenties", "cases"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}

@@ -1,0 +1,96 @@
+{
+    "key": "group_mk_projecten_blok",
+    "title": "Blok: Projecten",
+    "fields": [
+        {
+            "key": "field_mk_projecten_blok_titel",
+            "label": "Titel",
+            "name": "titel",
+            "type": "text",
+            "default_value": "Projecten"
+        },
+        {
+            "key": "field_mk_projecten_blok_keuze",
+            "label": "Welke projecten",
+            "name": "keuze",
+            "type": "button_group",
+            "choices": {
+                "nieuwste": "Nieuwste",
+                "handmatig": "Zelf kiezen"
+            },
+            "default_value": "nieuwste",
+            "return_format": "value",
+            "layout": "horizontal",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_projecten_blok_aantal",
+            "label": "Aantal",
+            "name": "aantal",
+            "type": "number",
+            "default_value": 2,
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "wrapper": { "width": "50" },
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_mk_projecten_blok_keuze",
+                        "operator": "==",
+                        "value": "nieuwste"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_mk_projecten_blok_projecten",
+            "label": "Projecten",
+            "name": "projecten",
+            "type": "relationship",
+            "instructions": "Sleep om de volgorde te wijzigen.",
+            "post_type": ["project"],
+            "post_status": ["publish"],
+            "filters": ["search", "taxonomy"],
+            "return_format": "id",
+            "min": 1,
+            "max": 6,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_mk_projecten_blok_keuze",
+                        "operator": "==",
+                        "value": "handmatig"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_mk_projecten_blok_knop",
+            "label": "Knop (optioneel)",
+            "name": "knop",
+            "type": "link",
+            "instructions": "Bijv. \"Bekijk alle projecten\" naar /projecten/.",
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/projecten"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Projecten-blok (mk/projecten)",
+    "show_in_rest": 0,
+    "modified": 1791807189
+}

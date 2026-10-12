@@ -1,0 +1,127 @@
+{
+    "key": "group_mk_project",
+    "title": "Project",
+    "fields": [
+        {
+            "key": "field_mk_project_tab_algemeen",
+            "label": "Algemeen",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_project_samenvatting",
+            "label": "Samenvatting",
+            "name": "samenvatting",
+            "type": "textarea",
+            "instructions": "Korte tekst (2 à 3 zinnen) op de projectkaartjes en bovenaan de projectpagina.",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mk_project_inhoud",
+            "label": "Projecttekst",
+            "name": "inhoud",
+            "type": "wysiwyg",
+            "instructions": "Het verhaal van het project. Gebruik tussenkoppen (Kop 2/3) voor structuur.",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_mk_project_tab_gegevens",
+            "label": "Projectgegevens",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_project_gegevens_info",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Alleen ingevulde gegevens worden getoond in de kaart naast de projecttekst. De toepassing kies je rechts bij \"Toepassingen\"."
+        },
+        {
+            "key": "field_mk_project_opdrachtgever",
+            "label": "Opdrachtgever",
+            "name": "opdrachtgever",
+            "type": "text",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_project_locatie",
+            "label": "Locatie",
+            "name": "locatie",
+            "type": "text",
+            "placeholder": "Bijv. Enschede",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_project_jaar",
+            "label": "Jaar van uitvoering",
+            "name": "jaar",
+            "type": "text",
+            "placeholder": "Bijv. 2025",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_project_mengsel",
+            "label": "Mengsel",
+            "name": "mengsel",
+            "type": "text",
+            "placeholder": "Bijv. Ecofalt Surf",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_project_oppervlakte",
+            "label": "Oppervlakte / lengte",
+            "name": "oppervlakte",
+            "type": "text",
+            "placeholder": "Bijv. 2.400 m²",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_mk_project_tab_fotos",
+            "label": "Foto's",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_project_galerij",
+            "label": "Fotogalerij",
+            "name": "galerij",
+            "type": "gallery",
+            "instructions": "Extra foto's, als slider onder de projecttekst. De hoofdfoto stel je rechts in bij \"Projectfoto\".",
+            "return_format": "id",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all",
+            "mime_types": "jpg,jpeg,png,webp"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "project"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden van een project (posttype project)",
+    "show_in_rest": 0,
+    "modified": 1791807189
+}

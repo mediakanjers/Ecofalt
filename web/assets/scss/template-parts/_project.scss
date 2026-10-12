@@ -1,0 +1,173 @@
+// =============================================================================
+// Projectpagina (single-project.php)
+// Kop (kruimelpad, labels, h1, samenvatting) -> grote foto -> tekst met
+// meescrollende zijkolom (projectgegevens + contact) -> foto's -> andere projecten
+// =============================================================================
+
+.mk-project {
+    &__labels {
+        @include list-reset;
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-xs;
+        margin-bottom: $spacing-s;
+
+        a {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background-color: rgba($color-primary, 0.12);
+            color: $color-dark-green;
+            font-size: $font-size-small;
+            font-weight: 500;
+            transition: background-color $custom-transition, color $custom-transition;
+
+            &:hover {
+                background-color: $color-primary;
+                color: $color-white;
+            }
+        }
+    }
+
+    // GROTE FOTO //
+    &__foto {
+        @include container(1326px);
+        margin: 0 auto;
+
+        &-img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: $custom-radius-image;
+            object-fit: cover;
+
+            @include mq(md) {
+                aspect-ratio: 21 / 9;
+            }
+        }
+    }
+
+    // TEKST + ZIJKOLOM //
+    &__body {
+        @include container(1326px);
+        @include section-spacing;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-xl;
+        margin-top: $spacing-xl;
+
+        @include mq(lg) {
+            grid-template-columns: minmax(0, 1fr) 380px;
+            gap: clamp(3rem, 0.5rem + 5vw, 6rem);
+            align-items: start;
+        }
+    }
+
+    // Zonder tekst: gegevens en contact naast elkaar
+    &__body--zonder-tekst &__zijkant {
+        @include mq(md) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: start;
+        }
+    }
+
+    &__body--zonder-tekst {
+        @include mq(lg) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__inhoud {
+        max-width: 760px;
+        font-size: $font-size-intro;
+        line-height: 1.7;
+
+        h2 {
+            font-size: $h3-font-size;
+        }
+
+        h3 {
+            font-size: $h4-font-size;
+        }
+    }
+
+    &__zijkant {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-s;
+
+        // Meescrollen onder de sticky header
+        @include mq(lg) {
+            position: sticky;
+            top: 130px;
+
+            .admin-bar & {
+                top: 162px;
+            }
+        }
+    }
+
+    &__zijkant-titel {
+        margin-bottom: $spacing-s;
+        font-size: $h4-font-size;
+    }
+
+    &__gegevens {
+        padding: $spacing-l;
+        border-radius: $custom-radius;
+        background-color: $color-white;
+
+        dl {
+            margin: 0;
+        }
+    }
+
+    &__gegeven {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2px;
+        padding-block: 12px;
+        border-top: 1px solid $color-light-grey;
+
+        &:first-child {
+            border-top: 0;
+            padding-top: 0;
+        }
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+
+        dt {
+            color: $color-grey;
+            font-size: $font-size-small;
+        }
+
+        dd {
+            margin: 0;
+            font-weight: 500;
+        }
+    }
+
+    &__cta {
+        padding: $spacing-l;
+        border-radius: $custom-radius;
+        background-color: $color-dark-green;
+
+        p {
+            margin-bottom: $spacing-m;
+        }
+    }
+
+    // FOTO'S //
+    &__fotos {
+        .mk-galerij {
+            padding-bottom: var(--mk-section-spacing);
+        }
+    }
+
+    &__sectie-titel {
+        @include container(1326px);
+        margin-bottom: $spacing-m;
+    }
+}

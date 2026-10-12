@@ -1,0 +1,85 @@
+// =============================================================================
+// Projectkaartje (template-parts/components/project-kaart.php)
+// Wit kaartje met ingesprongen foto, titel, samenvatting en "Lees meer".
+// Het hele kaartje is klikbaar via de titel-link (::after).
+// Ontwerp (1920): kaartje 648 breed, foto ±623 x 426 met 13px witrand.
+// =============================================================================
+
+.mk-project-kaart {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: clamp(0.5rem, 0.412rem + 0.3756vw, 0.8125rem); // 8 -> 13px rondom de foto
+    border: 1px solid rgba($color-black, 0.06);
+    border-radius: $custom-radius;
+    background-color: $color-white;
+    transition: box-shadow $custom-transition, transform $custom-transition;
+
+    &:hover,
+    &:focus-within {
+        box-shadow: 0 14px 34px rgba($color-black, 0.1);
+        transform: translateY(-3px);
+    }
+
+    &__media {
+        aspect-ratio: 623 / 426;
+        overflow: hidden;
+        border-radius: calc(#{$custom-radius} - 2px);
+        background-color: $color-light-grey;
+    }
+
+    &__afbeelding {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    &:hover &__afbeelding {
+        transform: scale(1.04);
+    }
+
+    &__body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: $spacing-m clamp(0.75rem, 0.31rem + 1.878vw, 2rem) $spacing-m; // zijkant 12 -> 32px
+    }
+
+    &__titel {
+        font-size: $h3-font-size;
+        text-wrap: pretty;
+    }
+
+    // Link over het hele kaartje
+    &__link::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        border-radius: $custom-radius;
+    }
+
+    &__link:focus-visible {
+        outline: none;
+
+        &::after {
+            outline: 2px solid $color-primary;
+            outline-offset: 3px;
+        }
+    }
+
+    &__tekst {
+        margin-top: $spacing-s;
+    }
+
+    &__meer {
+        margin-top: auto;
+        padding-top: $spacing-l;
+    }
+
+    &:hover &__meer::after {
+        transform: translateX(5px);
+    }
+}

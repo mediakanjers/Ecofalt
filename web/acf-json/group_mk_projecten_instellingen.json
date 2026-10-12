@@ -1,0 +1,80 @@
+{
+    "key": "group_mk_projecten_instellingen",
+    "title": "Projecten — instellingen",
+    "fields": [
+        {
+            "key": "field_mk_projecten_tab_overzicht",
+            "label": "Overzichtspagina",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_projecten_archief_titel",
+            "label": "Titel",
+            "name": "projecten_archief_titel",
+            "type": "text",
+            "default_value": "Projecten"
+        },
+        {
+            "key": "field_mk_projecten_archief_tekst",
+            "label": "Introtekst",
+            "name": "projecten_archief_tekst",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mk_projecten_tab_single",
+            "label": "Projectpagina",
+            "name": "",
+            "type": "tab",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_mk_projecten_cta_titel",
+            "label": "Titel contactblok",
+            "name": "projecten_cta_titel",
+            "type": "text",
+            "instructions": "Onder de projectgegevens op elke projectpagina.",
+            "default_value": "Ook Ecofalt toepassen?"
+        },
+        {
+            "key": "field_mk_projecten_cta_tekst",
+            "label": "Tekst contactblok",
+            "name": "projecten_cta_tekst",
+            "type": "textarea",
+            "rows": 2,
+            "new_lines": "",
+            "default_value": "We denken graag mee over de juiste opbouw en het passende mengsel."
+        },
+        {
+            "key": "field_mk_projecten_cta_knop",
+            "label": "Knop contactblok",
+            "name": "projecten_cta_knop",
+            "type": "link",
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "mk-projecten-instellingen"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Overzichtspagina en contactblok op projectpagina's",
+    "show_in_rest": 0,
+    "modified": 1791807189
+}

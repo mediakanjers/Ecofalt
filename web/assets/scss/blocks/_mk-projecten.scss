@@ -1,0 +1,166 @@
+// =============================================================================
+// Projecten — blok (mk/projecten), overzichtspagina en "Andere projecten"
+// Mobiel 1 kolom, vanaf md 2 kolommen, met 3+ projecten vanaf lg 3 kolommen.
+// =============================================================================
+
+.mk-projecten {
+    @include section-spacing;
+
+    &__container {
+        @include container(1326px);
+    }
+
+    &__titel {
+        margin-bottom: $spacing-m;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: clamp(1rem, 0.6rem + 1.7vw, 2rem);
+
+        @include mq(md) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    &--drie &__grid {
+        @include mq(lg) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    // In 3 kolommen een iets kleinere titel
+    &--drie .mk-project-kaart__titel {
+        @include mq(lg) {
+            font-size: $h4-font-size;
+        }
+    }
+
+    &__knop {
+        margin-top: $spacing-l;
+    }
+
+    &__leeg {
+        padding-block: $spacing-l;
+        color: $color-grey;
+    }
+}
+
+// =============================================================================
+// Paginakop voor overzicht- en detailpagina's: kruimelpad, h1, intro
+// =============================================================================
+
+.mk-pagina-kop {
+    @include container(1326px);
+    padding-top: $spacing-l;
+    padding-bottom: $spacing-xl;
+
+    .mk-breadcrumbs {
+        flex-wrap: wrap;
+        width: auto;
+        max-width: none;
+        margin: 0 0 $spacing-m;
+    }
+
+    &__tekst {
+        max-width: 860px;
+        margin-top: $spacing-m;
+    }
+}
+
+// =============================================================================
+// Filter (pillen) op het projectenoverzicht
+// =============================================================================
+
+.mk-filter {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: $spacing-xs;
+    margin-bottom: $spacing-l;
+    // Mobiel: horizontaal scrollen i.p.v. afbreken
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include mq(md) {
+        flex-wrap: wrap;
+        overflow: visible;
+    }
+
+    &__item {
+        flex-shrink: 0;
+        padding: 10px 20px;
+        border: 1px solid $color-light-grey;
+        border-radius: 999px;
+        background-color: $color-white;
+        color: $color-black;
+        font-size: $font-size-small;
+        white-space: nowrap;
+        transition: background-color $custom-transition, border-color $custom-transition, color $custom-transition;
+
+        &:hover {
+            border-color: $color-primary;
+            color: $color-primary;
+        }
+
+        &.is-active {
+            border-color: $color-primary;
+            background-color: $color-primary;
+            color: $color-white;
+        }
+    }
+}
+
+// =============================================================================
+// Paginering (the_posts_pagination)
+// =============================================================================
+
+.mk-paginering {
+    margin-top: $spacing-xl;
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: $spacing-xs;
+    }
+
+    .page-numbers {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
+        height: 44px;
+        padding-inline: 10px;
+        border-radius: $custom-radius;
+        background-color: $color-white;
+        color: $color-black;
+        transition: background-color $custom-transition, color $custom-transition;
+
+        &:hover {
+            color: $color-primary;
+        }
+
+        &.current {
+            background-color: $color-primary;
+            color: $color-white;
+        }
+
+        &.dots {
+            background: none;
+        }
+
+        &.prev::before,
+        &.next::before {
+            @include icon-mask($icon-chevron-left, 18px);
+        }
+
+        &.next::before {
+            mask-image: $icon-chevron-right;
+        }
+    }
+}
