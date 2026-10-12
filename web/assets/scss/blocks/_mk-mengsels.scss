@@ -1,0 +1,129 @@
+// =============================================================================
+// Blok: Mengsels (mk/mengsels)
+// Donkergroene band, witte titel + tekst, witte kaartjes met genummerd vierkant
+// (kleur loopt op: groen -> middengroen -> donkergroen), titel, groene subregel
+// en een pijl als het kaartje een link heeft. Ontwerp: kaartje 314 x 115.
+// =============================================================================
+
+$mengsels-kleuren: (
+    1: $color-primary,
+    2: $color-green,
+    3: $color-dark-green,
+);
+
+.mk-mengsels {
+    margin-bottom: var(--mk-section-spacing);
+    padding-block: clamp(3rem, 2.296rem + 3.005vw, 5rem); // 48 -> 80px
+    background-color: $color-dark-green;
+
+    &__container {
+        @include container(1326px);
+    }
+
+    &__tekst {
+        max-width: 660px;
+        margin-top: $spacing-s;
+    }
+
+    // KAARTJES //
+    &__lijst {
+        @include list-reset;
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-s clamp(1rem, 0.75rem + 0.6vw, 1.25rem);
+        margin-top: $spacing-l;
+
+        > li {
+            display: flex;
+            flex: 1 1 100%;
+
+            @include mq(sm) {
+                flex-basis: calc(50% - 1.25rem);
+            }
+
+            @include mq(lg) {
+                flex: 0 0 19.625rem; // 314px
+            }
+        }
+    }
+
+    &__kaart {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        gap: $spacing-m;
+        min-height: 7.1875rem; // 115px
+        padding: clamp(0.875rem, 0.743rem + 0.5634vw, 1.25rem); // 14 -> 20px
+        border-radius: $custom-radius;
+        background-color: $color-white;
+        color: $color-black;
+    }
+
+    &__nummer {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: clamp(3.5rem, 3.192rem + 1.315vw, 4.375rem); // 56 -> 70px
+        aspect-ratio: 1;
+        border-radius: 4px;
+        color: $color-white;
+        font-family: $font-family-body; // rondere cijfers dan Space Grotesk, zoals het ontwerp
+        font-size: clamp(1.75rem, 1.574rem + 0.751vw, 2.25rem); // 28 -> 36px
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    @each $nummer, $kleur in $mengsels-kleuren {
+        &__kaart[data-nummer="#{$nummer}"] &__nummer {
+            background-color: $kleur;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+    }
+
+    &__kaart-titel {
+        font-family: $font-family-heading;
+        font-size: $h5-font-size;
+        font-weight: 700;
+        line-height: 1.25;
+    }
+
+    &__kaart-sub {
+        color: $color-primary;
+        font-size: $font-size-small;
+        line-height: 1.3;
+    }
+
+    &__pijl {
+        flex-shrink: 0;
+        color: $color-primary;
+
+        &::before {
+            @include icon-mask($icon-arrow-right, 26px);
+            display: block;
+            transition: transform $custom-transition;
+        }
+    }
+
+    // Klikbaar kaartje: pijl schuift op, kaartje komt iets omhoog
+    &__kaart--link {
+        transition: box-shadow $custom-transition, transform $custom-transition;
+
+        &:hover,
+        &:focus-visible {
+            box-shadow: 0 10px 30px rgba($color-black, 0.25);
+            transform: translateY(-3px);
+
+            .mk-mengsels__pijl::before {
+                transform: translateX(5px);
+            }
+        }
+    }
+}

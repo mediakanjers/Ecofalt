@@ -1,0 +1,82 @@
+{
+    "key": "group_mk_mengsels",
+    "title": "Blok: Mengsels",
+    "fields": [
+        {
+            "key": "field_mk_mengsels_titel",
+            "label": "Titel",
+            "name": "titel",
+            "type": "text"
+        },
+        {
+            "key": "field_mk_mengsels_tekst",
+            "label": "Tekst",
+            "name": "tekst",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mk_mengsels_mengsels",
+            "label": "Mengsels",
+            "name": "mengsels",
+            "type": "repeater",
+            "instructions": "Nummer en kleur van het vierkantje gaan automatisch op volgorde.",
+            "layout": "table",
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_mk_mengsels_item_titel",
+            "button_label": "Mengsel toevoegen",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_mk_mengsels_item_titel",
+                    "label": "Titel",
+                    "name": "titel",
+                    "type": "text",
+                    "instructions": "Bijv. \"Ecofalt Base\"",
+                    "wrapper": { "width": "30" },
+                    "parent_repeater": "field_mk_mengsels_mengsels"
+                },
+                {
+                    "key": "field_mk_mengsels_item_subtitel",
+                    "label": "Subregel",
+                    "name": "subtitel",
+                    "type": "text",
+                    "instructions": "Bijv. \"voor de onderlaag\"",
+                    "wrapper": { "width": "30" },
+                    "parent_repeater": "field_mk_mengsels_mengsels"
+                },
+                {
+                    "key": "field_mk_mengsels_item_link",
+                    "label": "Link",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "Ingevuld = kaartje klikbaar met pijl.",
+                    "return_format": "array",
+                    "wrapper": { "width": "40" },
+                    "parent_repeater": "field_mk_mengsels_mengsels"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/mengsels"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Mengsels-blok (mk/mengsels)",
+    "show_in_rest": 0,
+    "modified": 1791806796
+}

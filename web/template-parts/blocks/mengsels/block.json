@@ -1,0 +1,19 @@
+{
+  "name": "mk/mengsels",
+  "title": "Mengsels",
+  "description": "Donkergroene band met titel, tekst en genummerde kaartjes (titel, subregel, link)",
+  "category": "mediakanjers",
+  "icon": "editor-ol",
+  "keywords": ["mengsels", "stappen", "nummers", "lagen"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}
