@@ -24,7 +24,7 @@
         <?php if ($titel || $tekst): ?>
             <div class="mk-toepassingen__intro">
                 <?php if ($titel): ?>
-                    <<?php echo $kop_titel; ?> class="mk-toepassingen__titel mk-h2"><?php echo esc_html($titel); ?></<?php echo $kop_titel; ?>>
+                    <<?php echo $kop_titel; ?> class="mk-toepassingen__titel mk-<?php echo $kop_titel; ?>"><?php echo esc_html($titel); ?></<?php echo $kop_titel; ?>>
                 <?php endif; ?>
                 <?php if ($tekst): ?>
                     <p class="mk-toepassingen__tekst"><?php echo nl2br(esc_html($tekst)); ?></p>

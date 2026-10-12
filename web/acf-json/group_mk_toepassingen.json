@@ -13,7 +13,7 @@
             "label": "Titel is de paginatitel (H1)",
             "name": "paginatitel",
             "type": "true_false",
-            "instructions": "Aanzetten als dit blok bovenaan de pagina staat. Uiterlijk blijft gelijk.",
+            "instructions": "Aanzetten als dit blok bovenaan de pagina staat: de titel wordt de H1 van de pagina, met H1-styling.",
             "ui": 1,
             "default_value": 0
         },
@@ -118,5 +118,5 @@
     "active": true,
     "description": "Velden voor het Toepassingen-blok (mk/toepassingen)",
     "show_in_rest": 0,
-    "modified": 1791812797
+    "modified": 1791813209
 }
