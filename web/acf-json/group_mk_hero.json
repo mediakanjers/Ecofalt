@@ -35,7 +35,9 @@
             "type": "link",
             "instructions": "Groene knop.",
             "return_format": "array",
-            "wrapper": { "width": "50" }
+            "wrapper": {
+                "width": "50"
+            }
         },
         {
             "key": "field_mk_hero_knop_2",
@@ -44,7 +46,9 @@
             "type": "link",
             "instructions": "Witte knop.",
             "return_format": "array",
-            "wrapper": { "width": "50" }
+            "wrapper": {
+                "width": "50"
+            }
         },
         {
             "key": "field_mk_hero_tab_achtergrond",
@@ -61,7 +65,9 @@
             "type": "url",
             "instructions": "Korte versie die stil en in een loop als achtergrond afspeelt. Leeg = donkergroene achtergrond.",
             "placeholder": "https://vimeo.com/...",
-            "wrapper": { "width": "50" }
+            "wrapper": {
+                "width": "50"
+            }
         },
         {
             "key": "field_mk_hero_vimeo",
@@ -70,7 +76,9 @@
             "type": "url",
             "instructions": "Volledige film met geluid. Ingevuld = knop \"Bekijk de bedrijfsfilm\", die de film in een popup opent.",
             "placeholder": "https://vimeo.com/...",
-            "wrapper": { "width": "50" }
+            "wrapper": {
+                "width": "50"
+            }
         },
         {
             "key": "field_mk_hero_film_knoptekst",
@@ -111,19 +119,6 @@
             "append": "%"
         },
         {
-            "key": "field_mk_hero_onderkant",
-            "label": "Achtergrond onder de kaarten",
-            "name": "onderkant",
-            "type": "button_group",
-            "choices": {
-                "off-white": "Gebroken wit",
-                "white": "Wit"
-            },
-            "default_value": "off-white",
-            "return_format": "value",
-            "layout": "horizontal"
-        },
-        {
             "key": "field_mk_hero_tab_kaarten",
             "label": "Kaarten",
             "name": "",
@@ -153,7 +148,9 @@
                     "preview_size": "thumbnail",
                     "library": "all",
                     "mime_types": "svg,png,webp",
-                    "wrapper": { "width": "25" },
+                    "wrapper": {
+                        "width": "25"
+                    },
                     "parent_repeater": "field_mk_hero_kaarten"
                 },
                 {
@@ -161,7 +158,9 @@
                     "label": "Titel",
                     "name": "titel",
                     "type": "text",
-                    "wrapper": { "width": "75" },
+                    "wrapper": {
+                        "width": "75"
+                    },
                     "parent_repeater": "field_mk_hero_kaarten"
                 },
                 {
@@ -203,5 +202,5 @@
     "active": true,
     "description": "Velden voor het Hero-blok (mk/hero)",
     "show_in_rest": 0,
-    "modified": 1791797190
+    "modified": 1791798307
 }

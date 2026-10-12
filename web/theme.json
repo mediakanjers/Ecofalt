@@ -20,6 +20,7 @@
         { "name": "Lichtgrijs", "slug": "light-grey", "color": "#D6D6D6" },
         { "name": "Grijs", "slug": "grey", "color": "#58585A" },
         { "name": "Gebroken wit", "slug": "off-white", "color": "#F1EFEE" },
+        { "name": "Achtergrond (body)", "slug": "background", "color": "#EEF0F1" },
         { "name": "Antraciet", "slug": "anthracite", "color": "#434A55" },
         { "name": "Zwart", "slug": "black", "color": "#000000" },
         { "name": "Wit", "slug": "white", "color": "#FFFFFF" }
@@ -199,7 +200,7 @@
   },
   "styles": {
     "color": {
-      "background": "var:preset|color|white",
+      "background": "var:preset|color|background",
       "text": "var:preset|color|black"
     },
     "typography": {

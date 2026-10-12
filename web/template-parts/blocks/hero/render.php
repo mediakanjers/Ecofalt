@@ -9,12 +9,11 @@
     $afbeelding   = get_field('afbeelding');
     $overlay      = get_field('overlay');
     $kaarten      = get_field('kaarten') ?: [];
-    $onderkant    = get_field('onderkant') ?: 'off-white';
 
     $overlay = is_numeric($overlay) ? max(0, min(100, (int) $overlay)) : 70;
     $titel_regels = $titel ? preg_split('/\R/', trim($titel)) : [];
 
-    $classes = ['mk-hero', 'mk-hero--onder-' . sanitize_html_class($onderkant)];
+    $classes = ['mk-hero'];
     if ($kaarten) $classes[] = 'mk-hero--met-kaarten';
     if (!empty($block['className'])) $classes[] = $block['className'];
 

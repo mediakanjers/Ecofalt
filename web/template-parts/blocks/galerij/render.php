@@ -1,6 +1,5 @@
 <?php
-    $fotos       = get_field('galerij') ?: [];
-    $achtergrond = get_field('achtergrond') ?: 'off-white';
+    $fotos = get_field('galerij') ?: [];
 
     if (!$fotos) {
         if ($is_preview) {
@@ -9,7 +8,7 @@
         return;
     }
 
-    $classes = ['mk-galerij', 'mk-galerij--' . sanitize_html_class($achtergrond)];
+    $classes = ['mk-galerij'];
     if (!empty($block['className'])) $classes[] = $block['className'];
 
     $anchor = !empty($block['anchor']) ? ' id="' . esc_attr($block['anchor']) . '"' : '';

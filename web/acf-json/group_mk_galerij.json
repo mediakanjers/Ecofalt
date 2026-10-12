@@ -15,19 +15,6 @@
             "library": "all",
             "min": 1,
             "mime_types": "jpg,jpeg,png,webp"
-        },
-        {
-            "key": "field_mk_galerij_achtergrond",
-            "label": "Achtergrond",
-            "name": "achtergrond",
-            "type": "button_group",
-            "choices": {
-                "off-white": "Gebroken wit",
-                "white": "Wit"
-            },
-            "default_value": "off-white",
-            "return_format": "value",
-            "layout": "horizontal"
         }
     ],
     "location": [
@@ -48,5 +35,5 @@
     "active": true,
     "description": "Velden voor het Galerij slider-blok (mk/galerij)",
     "show_in_rest": 0,
-    "modified": 1791797555
+    "modified": 1791798307
 }

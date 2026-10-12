@@ -9,14 +9,6 @@
     --mk-hero-overlap: 0px;
     @include section-spacing;
 
-    &--onder-off-white {
-        background-color: $color-off-white;
-    }
-
-    &--onder-white {
-        background-color: $color-white;
-    }
-
     // Overlap van de kaarten over de hero: 40px (mobiel) -> 131px (1440+)
     &--met-kaarten {
         --mk-hero-overlap: clamp(2.5rem, 0.4975rem + 8.545vw, 8.1875rem);

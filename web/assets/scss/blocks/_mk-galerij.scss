@@ -12,14 +12,6 @@ $galerij-viewport: 1560px;
 .mk-galerij {
     @include section-spacing;
 
-    &--off-white {
-        background-color: $color-off-white;
-    }
-
-    &--white {
-        background-color: $color-white;
-    }
-
     // Tot waar de foto's zichtbaar zijn (daarbuiten afgeknipt)
     &__viewport {
         max-width: $galerij-viewport;
