@@ -57,10 +57,9 @@
     padding-bottom: $spacing-xl;
 
     .mk-breadcrumbs {
-        flex-wrap: wrap;
-        width: auto;
         max-width: none;
         margin: 0 0 $spacing-m;
+        padding: 0;
     }
 
     &__tekst {

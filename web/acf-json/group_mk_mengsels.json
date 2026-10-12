@@ -22,7 +22,7 @@
             "name": "mengsels",
             "type": "repeater",
             "instructions": "Nummer en kleur van het vierkantje gaan automatisch op volgorde.",
-            "layout": "table",
+            "layout": "block",
             "min": 0,
             "max": 0,
             "collapsed": "field_mk_mengsels_item_titel",
@@ -35,7 +35,9 @@
                     "name": "titel",
                     "type": "text",
                     "instructions": "Bijv. \"Ecofalt Base\"",
-                    "wrapper": { "width": "30" },
+                    "wrapper": {
+                        "width": "50"
+                    },
                     "parent_repeater": "field_mk_mengsels_mengsels"
                 },
                 {
@@ -44,7 +46,19 @@
                     "name": "subtitel",
                     "type": "text",
                     "instructions": "Bijv. \"voor de onderlaag\"",
-                    "wrapper": { "width": "30" },
+                    "wrapper": {
+                        "width": "50"
+                    },
+                    "parent_repeater": "field_mk_mengsels_mengsels"
+                },
+                {
+                    "key": "field_mk_mengsels_item_tekst",
+                    "label": "Tekst (optioneel)",
+                    "name": "tekst",
+                    "type": "textarea",
+                    "instructions": "Ingevuld = kaartjes worden even breed over de volle breedte, met de tekst onder de titel.",
+                    "rows": 3,
+                    "new_lines": "",
                     "parent_repeater": "field_mk_mengsels_mengsels"
                 },
                 {
@@ -54,7 +68,9 @@
                     "type": "link",
                     "instructions": "Ingevuld = kaartje klikbaar met pijl.",
                     "return_format": "array",
-                    "wrapper": { "width": "40" },
+                    "wrapper": {
+                        "width": "100"
+                    },
                     "parent_repeater": "field_mk_mengsels_mengsels"
                 }
             ]
@@ -78,5 +94,5 @@
     "active": true,
     "description": "Velden voor het Mengsels-blok (mk/mengsels)",
     "show_in_rest": 0,
-    "modified": 1791806796
+    "modified": 1791812797
 }

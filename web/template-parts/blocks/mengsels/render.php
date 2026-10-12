@@ -11,6 +11,8 @@
     }
 
     $classes = ['mk-mengsels', 'mk-on-dark'];
+    // Met tekst bij de mengsels: kaartjes even breed over de volle breedte
+    if (array_filter(array_column($mengsels, 'tekst'))) $classes[] = 'mk-mengsels--met-tekst';
     if (!empty($block['className'])) $classes[] = $block['className'];
 
     $anchor = !empty($block['anchor']) ? ' id="' . esc_attr($block['anchor']) . '"' : '';
@@ -47,6 +49,9 @@
                                 <?php endif; ?>
                                 <?php if (!empty($mengsel['subtitel'])): ?>
                                     <span class="mk-mengsels__kaart-sub"><?php echo esc_html($mengsel['subtitel']); ?></span>
+                                <?php endif; ?>
+                                <?php if (!empty($mengsel['tekst'])): ?>
+                                    <span class="mk-mengsels__kaart-tekst"><?php echo nl2br(esc_html($mengsel['tekst'])); ?></span>
                                 <?php endif; ?>
                             </span>
                             <?php if ($pijl): ?>

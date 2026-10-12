@@ -90,6 +90,26 @@
         }
     }
 
+    &__kaart-inhoud {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    // Met tekst: inhoud bovenaan i.p.v. verticaal gecentreerd
+    &__kaart--met-tekst {
+        align-items: flex-start;
+
+        @include mq(md) {
+            justify-content: flex-start;
+        }
+    }
+
+    &__kaart-tekst {
+        font-size: $font-size-small;
+        line-height: 1.5;
+    }
+
     &__kaart-titel {
         font-family: $font-family-heading;
         font-size: clamp(1.0625rem, 0.9965rem + 0.2817vw, 1.25rem); // 17 -> 20px

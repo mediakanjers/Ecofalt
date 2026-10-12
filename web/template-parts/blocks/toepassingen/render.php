@@ -4,6 +4,7 @@
     $kop          = get_field('kop_toepassingen');
     $toepassingen = get_field('toepassingen') ?: [];
     $knop         = get_field('knop');
+    $kop_titel    = get_field('paginatitel') ? 'h1' : 'h2'; // bovenaan een pagina: de H1
 
     if (!$titel && !$toepassingen) {
         if ($is_preview) {
@@ -23,7 +24,7 @@
         <?php if ($titel || $tekst): ?>
             <div class="mk-toepassingen__intro">
                 <?php if ($titel): ?>
-                    <h2 class="mk-toepassingen__titel"><?php echo esc_html($titel); ?></h2>
+                    <<?php echo $kop_titel; ?> class="mk-toepassingen__titel mk-h2"><?php echo esc_html($titel); ?></<?php echo $kop_titel; ?>>
                 <?php endif; ?>
                 <?php if ($tekst): ?>
                     <p class="mk-toepassingen__tekst"><?php echo nl2br(esc_html($tekst)); ?></p>
@@ -46,15 +47,20 @@
                         : '';
                 ?>
                     <li>
-                        <<?php echo $tag; ?> class="mk-toepassingen__kaart<?php echo $klik ? ' mk-toepassingen__kaart--link' : ''; ?>"<?php echo $attrs; ?>>
+                        <<?php echo $tag; ?> class="mk-toepassingen__kaart<?php echo $klik ? ' mk-toepassingen__kaart--link' : ''; ?><?php echo !empty($toepassing['tekst']) ? ' mk-toepassingen__kaart--met-tekst' : ''; ?>"<?php echo $attrs; ?>>
                             <?php if (!empty($toepassing['icoon'])): ?>
                                 <span class="mk-toepassingen__icoon">
                                     <?php echo mk_image($toepassing['icoon'], 'medium', ['alt' => '', 'loading' => 'lazy']); ?>
                                 </span>
                             <?php endif; ?>
-                            <?php if (!empty($toepassing['titel'])): ?>
-                                <span class="mk-toepassingen__kaart-titel"><?php echo esc_html($toepassing['titel']); ?></span>
-                            <?php endif; ?>
+                            <span class="mk-toepassingen__kaart-inhoud">
+                                <?php if (!empty($toepassing['titel'])): ?>
+                                    <span class="mk-toepassingen__kaart-titel"><?php echo esc_html($toepassing['titel']); ?></span>
+                                <?php endif; ?>
+                                <?php if (!empty($toepassing['tekst'])): ?>
+                                    <span class="mk-toepassingen__kaart-tekst"><?php echo nl2br(esc_html($toepassing['tekst'])); ?></span>
+                                <?php endif; ?>
+                            </span>
                         </<?php echo $tag; ?>>
                     </li>
                 <?php endforeach; ?>

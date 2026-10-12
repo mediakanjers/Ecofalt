@@ -9,6 +9,15 @@
             "type": "text"
         },
         {
+            "key": "field_mk_toepassingen_paginatitel",
+            "label": "Titel is de paginatitel (H1)",
+            "name": "paginatitel",
+            "type": "true_false",
+            "instructions": "Aanzetten als dit blok bovenaan de pagina staat. Uiterlijk blijft gelijk.",
+            "ui": 1,
+            "default_value": 0
+        },
+        {
             "key": "field_mk_toepassingen_tekst",
             "label": "Tekst",
             "name": "tekst",
@@ -29,7 +38,7 @@
             "name": "toepassingen",
             "type": "repeater",
             "instructions": "Op desktop 3 naast elkaar, op mobiel onder elkaar.",
-            "layout": "table",
+            "layout": "block",
             "min": 0,
             "max": 0,
             "collapsed": "field_mk_toepassingen_item_titel",
@@ -45,7 +54,9 @@
                     "preview_size": "thumbnail",
                     "library": "all",
                     "mime_types": "svg,png,webp",
-                    "wrapper": { "width": "20" },
+                    "wrapper": {
+                        "width": "20"
+                    },
                     "parent_repeater": "field_mk_toepassingen_toepassingen"
                 },
                 {
@@ -53,7 +64,18 @@
                     "label": "Titel",
                     "name": "titel",
                     "type": "text",
-                    "wrapper": { "width": "45" },
+                    "wrapper": {
+                        "width": "80"
+                    },
+                    "parent_repeater": "field_mk_toepassingen_toepassingen"
+                },
+                {
+                    "key": "field_mk_toepassingen_item_tekst",
+                    "label": "Tekst (optioneel)",
+                    "name": "tekst",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": "",
                     "parent_repeater": "field_mk_toepassingen_toepassingen"
                 },
                 {
@@ -63,7 +85,9 @@
                     "type": "link",
                     "instructions": "Ingevuld = het hele kaartje is klikbaar.",
                     "return_format": "array",
-                    "wrapper": { "width": "35" },
+                    "wrapper": {
+                        "width": "100"
+                    },
                     "parent_repeater": "field_mk_toepassingen_toepassingen"
                 }
             ]
@@ -94,5 +118,5 @@
     "active": true,
     "description": "Velden voor het Toepassingen-blok (mk/toepassingen)",
     "show_in_rest": 0,
-    "modified": 1791806475
+    "modified": 1791812797
 }

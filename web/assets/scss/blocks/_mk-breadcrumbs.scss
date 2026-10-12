@@ -1,17 +1,19 @@
+// =============================================================================
+// Kruimelpad (mk_breadcrumbs() uit mkbase, ook als blok mk/breadcrumbs)
+// Als los blok: bovenaan de pagina op de contentbreedte, strak boven het volgende blok.
+// Binnen een paginakop (.mk-pagina-kop) zonder eigen container/witruimte.
+// =============================================================================
+
 .mk-breadcrumbs {
-    max-width: $layout-content-size;
-    width: calc(100% - 2 * var(--mk-gutter));
-    margin: 0 auto;
-
-    &:not(:last-child) {
-        margin-bottom: var(--mk-section-spacing);
-    }
-
+    @include container(1326px);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 6px;
-    font-size: $font-size-small;
+    margin-bottom: $spacing-s;
+    padding-top: $spacing-l;
     color: $font-color-normal;
+    font-size: $font-size-small;
 
     a {
         color: $color-primary;
@@ -24,8 +26,8 @@
 
     strong,
     span:not(.mk-breadcrumbs-sep) {
-        font-weight: 600;
         color: $font-color-normal;
+        font-weight: 600;
     }
 
     &-sep {
