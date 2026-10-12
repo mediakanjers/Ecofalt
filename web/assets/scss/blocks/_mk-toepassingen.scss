@@ -1,0 +1,112 @@
+// =============================================================================
+// Blok: Toepassingen (mk/toepassingen)
+// Titel + tekst, kop "Toepassingen", witte kaartjes (icoon + titel) en een knop.
+// Mobiel: kaartjes onder elkaar, icoon links naast de titel; knop volle breedte.
+// Vanaf md: 3 kaartjes naast elkaar, icoon boven de titel (ontwerp 422 x 172).
+// =============================================================================
+
+.mk-toepassingen {
+    @include section-spacing;
+
+    &__container {
+        @include container(1326px);
+    }
+
+    &__tekst {
+        max-width: 920px;
+        margin-top: $spacing-m;
+    }
+
+    &__kop {
+        margin-top: $spacing-xl;
+        font-size: clamp(1.25rem, 1.162rem + 0.3756vw, 1.5rem); // 20 -> 24px
+    }
+
+    // KAARTJES //
+    &__lijst {
+        @include list-reset;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-s;
+        margin-top: $spacing-s;
+
+        @include mq(md) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(1rem, 0.25rem + 1.5vw, 1.875rem);
+        }
+
+        > li {
+            display: flex; // kaartjes even hoog
+        }
+    }
+
+    &__kaart {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        gap: $spacing-m;
+        padding: $spacing-m $spacing-l;
+        border-radius: $custom-radius;
+        background-color: $color-white;
+        color: $color-black;
+
+        @include mq(md) {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: $spacing-s;
+            min-height: 10.75rem; // 172px
+            padding: clamp(1.5rem, 1.368rem + 0.5634vw, 1.875rem);
+        }
+    }
+
+    // Klikbaar kaartje (als er een link is ingevuld)
+    &__kaart--link {
+        transition: box-shadow $custom-transition, transform $custom-transition;
+
+        &:hover,
+        &:focus-visible {
+            box-shadow: 0 10px 30px rgba($color-black, 0.1);
+            transform: translateY(-3px);
+        }
+    }
+
+    &__icoon {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: clamp(4rem, 3.648rem + 1.502vw, 5rem); // 64 -> 80px
+
+        @include mq(md) {
+            justify-content: flex-start;
+        }
+
+        img {
+            width: auto;
+            max-width: 100%;
+            height: clamp(2.75rem, 2.486rem + 1.127vw, 3.5rem); // 44 -> 56px
+            object-fit: contain;
+        }
+    }
+
+    &__kaart-titel {
+        font-family: $font-family-heading;
+        font-size: clamp(1.0625rem, 0.9965rem + 0.2817vw, 1.25rem); // 17 -> 20px
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    // KNOP //
+    &__knop {
+        margin-top: $spacing-s;
+
+        .mk-button {
+            width: 100%;
+
+            @include mq(sm) {
+                width: auto;
+            }
+        }
+    }
+}

@@ -1,0 +1,98 @@
+{
+    "key": "group_mk_toepassingen",
+    "title": "Blok: Toepassingen",
+    "fields": [
+        {
+            "key": "field_mk_toepassingen_titel",
+            "label": "Titel",
+            "name": "titel",
+            "type": "text"
+        },
+        {
+            "key": "field_mk_toepassingen_tekst",
+            "label": "Tekst",
+            "name": "tekst",
+            "type": "textarea",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mk_toepassingen_kop",
+            "label": "Kop boven de kaartjes",
+            "name": "kop_toepassingen",
+            "type": "text",
+            "default_value": "Toepassingen"
+        },
+        {
+            "key": "field_mk_toepassingen_toepassingen",
+            "label": "Toepassingen",
+            "name": "toepassingen",
+            "type": "repeater",
+            "instructions": "Op desktop 3 naast elkaar, op mobiel onder elkaar.",
+            "layout": "table",
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_mk_toepassingen_item_titel",
+            "button_label": "Toepassing toevoegen",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_mk_toepassingen_item_icoon",
+                    "label": "Icoon",
+                    "name": "icoon",
+                    "type": "image",
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "mime_types": "svg,png,webp",
+                    "wrapper": { "width": "20" },
+                    "parent_repeater": "field_mk_toepassingen_toepassingen"
+                },
+                {
+                    "key": "field_mk_toepassingen_item_titel",
+                    "label": "Titel",
+                    "name": "titel",
+                    "type": "text",
+                    "wrapper": { "width": "45" },
+                    "parent_repeater": "field_mk_toepassingen_toepassingen"
+                },
+                {
+                    "key": "field_mk_toepassingen_item_link",
+                    "label": "Link (optioneel)",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "Ingevuld = het hele kaartje is klikbaar.",
+                    "return_format": "array",
+                    "wrapper": { "width": "35" },
+                    "parent_repeater": "field_mk_toepassingen_toepassingen"
+                }
+            ]
+        },
+        {
+            "key": "field_mk_toepassingen_knop",
+            "label": "Knop",
+            "name": "knop",
+            "type": "link",
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "mk/toepassingen"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Velden voor het Toepassingen-blok (mk/toepassingen)",
+    "show_in_rest": 0,
+    "modified": 1791806475
+}

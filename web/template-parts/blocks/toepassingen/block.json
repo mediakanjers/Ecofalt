@@ -1,0 +1,19 @@
+{
+  "name": "mk/toepassingen",
+  "title": "Toepassingen",
+  "description": "Titel en tekst met kaartjes (icoon + titel) en een knop",
+  "category": "mediakanjers",
+  "icon": "screenoptions",
+  "keywords": ["toepassingen", "kaarten", "iconen", "diensten"],
+  "apiVersion": 3,
+  "acf": {
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "html": false
+  }
+}
