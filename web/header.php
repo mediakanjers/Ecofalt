@@ -15,7 +15,6 @@
 <?php // Steentjes (granulaat) die met diepte in de achtergrond meebewegen ?>
 <div class="mk-steentjes" aria-hidden="true">
 	<div class="mk-steentjes__laag mk-steentjes__laag--groot"></div>
-	<div class="mk-steentjes__laag mk-steentjes__laag--klein"></div>
 </div>
 
 <div id="page_container">

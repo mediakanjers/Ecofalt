@@ -4,7 +4,7 @@
 // zonder JS of met reduced motion is alles direct en volledig zichtbaar.
 // =============================================================================
 
-// STEENTJES — lichte granulaatsteentjes in de achtergrond, met diepte (2 lagen)
+// STEENTJES — een paar lichte granulaatsteentjes in de achtergrond, met rustige diepte
 .mk-steentjes {
     position: fixed;
     inset: 0;
@@ -22,13 +22,8 @@
 
     // Een tegel extra hoogte, zodat er tijdens het verschuiven nooit een gat valt
     &__laag--groot {
-        height: calc(100% + 720px);
-        background: url("../../assets/images/steentjes-groot.svg") 0 0 / 720px 720px repeat;
-    }
-
-    &__laag--klein {
-        height: calc(100% + 460px);
-        background: url("../../assets/images/steentjes-klein.svg") 130px 0 / 460px 460px repeat;
+        height: calc(100% + 900px);
+        background: url("../../assets/images/steentjes-groot.svg") 0 0 / 900px 900px repeat;
     }
 }
 

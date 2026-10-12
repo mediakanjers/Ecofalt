@@ -26,10 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // STEENTJES — per laag een eigen snelheid; translate binnen één tegel zodat het naadloos herhaalt
+    // STEENTJES — rustig: 10% van de scrollsnelheid; translate binnen één tegel zodat het naadloos herhaalt
     var lagen = [
-        { el: document.querySelector('.mk-steentjes__laag--groot'), snelheid: 0.18, tegel: 720 },
-        { el: document.querySelector('.mk-steentjes__laag--klein'), snelheid: 0.4, tegel: 460 }
+        { el: document.querySelector('.mk-steentjes__laag--groot'), snelheid: 0.1, tegel: 900 }
     ].filter(function (laag) {
         return laag.el;
     });
