@@ -5,6 +5,8 @@
 // - terug in de tijd: de wals draait om en rijdt de andere kant op (CSS: .is-reversed)
 // - het kaartje waar de voorste wals bij is, wordt actief (groen)
 // - bij in beeld komen rijdt de wals van buiten het scherm naar zijn startplek
+// - de wals zelf is te slepen (muis + touch): zo rijd je door de tijd
+// - ballonnetje met aanwijzing tot de eerste interactie (1x per bezoek)
 document.addEventListener('DOMContentLoaded', function () {
     var MACHINE_WIDTH = 370;     // breedte van tijdlijn-machine.svg op schaal 1
     var OVERHANG = 134;          // ontwerp: wals start 134px links van de content
@@ -110,7 +112,67 @@ document.addEventListener('DOMContentLoaded', function () {
             lastX = x;
         }
 
-        tijdlijn.querySelector('[data-mk-slider]').addEventListener('mk-slider:update', render);
+        var slider = tijdlijn.querySelector('[data-mk-slider]');
+
+        // AANWIJZING — tonen na de intro, weg bij de eerste interactie, 1x per bezoek
+        var hintDone = false;
+        try {
+            hintDone = sessionStorage.getItem('mk-tijdlijn-hint') === '1';
+        } catch (e) {}
+
+        function showHint() {
+            if (!hintDone) tijdlijn.classList.add('is-hinting');
+        }
+
+        function dismissHint() {
+            if (hintDone) return;
+            hintDone = true;
+            tijdlijn.classList.remove('is-hinting');
+            try {
+                sessionStorage.setItem('mk-tijdlijn-hint', '1');
+            } catch (e) {}
+        }
+
+        road.addEventListener('pointerdown', dismissHint);
+        track.addEventListener('scroll', function () {
+            if (track.scrollLeft > 2) dismissHint();
+        }, { passive: true });
+
+        // DE WALS SLEPEN — verschuiving van de wals omrekenen naar scroll van de tijdlijn
+        var grab = null;
+
+        machine.addEventListener('pointerdown', function (e) {
+            if (e.button !== 0 || parked) return;
+            var r = route();
+            var max = track.scrollWidth - track.clientWidth;
+            if (max <= 1 || r.end <= r.start) return;
+
+            grab = { id: e.pointerId, x: e.clientX, start: track.scrollLeft, ratio: max / (r.end - r.start) };
+            machine.setPointerCapture(e.pointerId);
+            machine.classList.add('is-grabbed');
+            slider.classList.add('is-dragging'); // geen snap tijdens het slepen
+            e.preventDefault();
+        });
+
+        machine.addEventListener('pointermove', function (e) {
+            if (!grab || e.pointerId !== grab.id) return;
+            track.scrollLeft = grab.start + (e.clientX - grab.x) * grab.ratio;
+        });
+
+        function release(e) {
+            if (!grab || e.pointerId !== grab.id) return;
+            var dx = e.clientX - grab.x;
+            grab = null;
+            machine.classList.remove('is-grabbed');
+            // Eerst snappen (zet native snap tijdelijk uit), dan pas het slepen afronden
+            slider.dispatchEvent(new CustomEvent('mk-slider:snap', { detail: { direction: dx > 0 ? 1 : (dx < 0 ? -1 : 0) } }));
+            slider.classList.remove('is-dragging');
+        }
+
+        machine.addEventListener('pointerup', release);
+        machine.addEventListener('pointercancel', release);
+
+        slider.addEventListener('mk-slider:update', render);
         window.addEventListener('resize', function () {
             render(true);
         });
@@ -132,13 +194,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 render();
 
                 machine.addEventListener('transitionend', function done(e) {
-                    if (e.propertyName !== 'transform') return;
+                    if (e.target !== machine || e.propertyName !== 'transform') return;
                     machine.removeEventListener('transitionend', done);
                     machine.classList.remove('is-intro', 'is-driving');
+                    showHint();
                 });
             }, { threshold: 0.4 });
 
             observer.observe(road);
+        } else {
+            showHint();
         }
 
         render();

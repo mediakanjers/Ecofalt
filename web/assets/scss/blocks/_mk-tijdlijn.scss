@@ -54,13 +54,105 @@
         left: 0;
         z-index: 2;
         width: calc(370 * var(--mk-px));
-        pointer-events: none;
+        cursor: grab;
+        touch-action: none; // de wals slepen met de vinger i.p.v. de pagina scrollen
+        user-select: none;
         transform: translateX(var(--mk-machine-x, 0px));
         transition: transform 0.15s linear;
 
         // Inrijden als het blok in beeld komt
         &.is-intro {
             transition: transform 2s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        // Zelf aan het rijden (slepen): direct volgen, geen vertraging
+        &.is-grabbed {
+            cursor: grabbing;
+            transition: none;
+        }
+    }
+
+    // AANWIJZING //
+    // Ballonnetje naast de wals tot de eerste interactie (.is-hinting op .mk-tijdlijn)
+    &__hint {
+        position: absolute;
+        top: 22%;
+        left: calc(100% + 14px);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: max-content;
+        max-width: min(220px, calc(100vw - 100% - 2.5rem));
+        padding: 8px 14px 8px 10px;
+        border-radius: $custom-radius;
+        background-color: $color-white;
+        box-shadow: 0 8px 22px rgba($color-black, 0.14);
+        color: $color-black;
+        font-size: $font-size-small;
+        font-weight: 500;
+        line-height: 1.3;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(8px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+
+        // Pijltje naar de wals
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            border: 7px solid transparent;
+            border-right-color: $color-white;
+            transform: translateY(-50%);
+        }
+    }
+
+    &.is-hinting &__hint {
+        opacity: 1;
+        transform: none;
+        animation: mk-tijdlijn-bob 2.4s ease-in-out 0.4s infinite;
+    }
+
+    // Twee groene pijltjes die uit elkaar bewegen (heen en weer rijden)
+    &__hint-pijlen {
+        position: relative;
+        flex-shrink: 0;
+        width: 26px;
+        height: 16px;
+        color: $color-primary;
+
+        &::before,
+        &::after {
+            @include icon-mask($icon-chevron-left, 16px);
+            position: absolute;
+            top: 0;
+            animation: mk-tijdlijn-pijl-links 1.2s ease-in-out infinite;
+        }
+
+        &::before {
+            left: 0;
+        }
+
+        &::after {
+            right: 0;
+            mask-image: $icon-chevron-right;
+            animation-name: mk-tijdlijn-pijl-rechts;
+        }
+    }
+
+    // Muis of touch: passende tekst
+    &__hint-tekst--touch {
+        display: none;
+    }
+
+    @media (pointer: coarse) {
+        &__hint-tekst--muis {
+            display: none;
+        }
+
+        &__hint-tekst--touch {
+            display: inline;
         }
     }
 
@@ -196,7 +288,10 @@
         }
 
         &__machine.is-driving &__machine-body,
-        &__machine.is-driving &__smoke i {
+        &__machine.is-driving &__smoke i,
+        &.is-hinting &__hint,
+        &__hint-pijlen::before,
+        &__hint-pijlen::after {
             animation: none;
         }
     }
@@ -211,4 +306,20 @@
 @keyframes mk-tijdlijn-smoke {
     0%   { opacity: 0.8; transform: translate(0, 0) scale(0.4); }
     100% { opacity: 0;   transform: translate(-28px, -36px) scale(1.8); }
+}
+
+// Ballonnetje deint zachtjes
+@keyframes mk-tijdlijn-bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-5px); }
+}
+
+@keyframes mk-tijdlijn-pijl-links {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(-4px); }
+}
+
+@keyframes mk-tijdlijn-pijl-rechts {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(4px); }
 }

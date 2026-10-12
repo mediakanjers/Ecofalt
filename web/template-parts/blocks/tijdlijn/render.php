@@ -44,6 +44,13 @@
                     <div class="mk-tijdlijn__machine-body"><?php echo $machine; ?></div>
                     <span class="mk-tijdlijn__smoke"><i></i><i></i><i></i></span>
                 </div>
+
+                <?php // Aanwijzing tot de eerste interactie (assets/js/tijdlijn.js) ?>
+                <span class="mk-tijdlijn__hint">
+                    <span class="mk-tijdlijn__hint-pijlen"></span>
+                    <span class="mk-tijdlijn__hint-tekst mk-tijdlijn__hint-tekst--muis"><?php esc_html_e('Pak de wals en rijd door de tijd', 'mk'); ?></span>
+                    <span class="mk-tijdlijn__hint-tekst mk-tijdlijn__hint-tekst--touch"><?php esc_html_e('Swipe en rijd door de tijd', 'mk'); ?></span>
+                </span>
             </div>
 
             <div class="mk-slider__viewport">

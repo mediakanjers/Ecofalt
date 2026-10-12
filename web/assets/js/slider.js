@@ -5,6 +5,7 @@
 // - geen klik (Fancybox, links) direct na het slepen
 // - stuurt bij elke wijziging 'mk-slider:update' op het root-element:
 //   detail = { progress (0-1), scroll (px), max (px) }
+// - luistert naar 'mk-slider:refresh' en 'mk-slider:snap' (detail.direction)
 document.addEventListener('DOMContentLoaded', function () {
     var DRAG_THRESHOLD = 5;
 
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!track || !nav || !thumb) return;
 
         var slides = track.querySelectorAll('[data-mk-slide]');
+        var snapTimer = null;
 
         function maxScroll() {
             return track.scrollWidth - track.clientWidth;
@@ -68,7 +70,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
+            // Native snap uit tot de animatie klaar is, anders snapt de browser bij het
+            // loslaten zelf naar de dichtstbijzijnde slide en gaat het duwtje verloren
+            root.classList.add('is-snapping');
             track.scrollTo({ left: Math.min(target, maxScroll()), behavior: 'smooth' });
+
+            clearTimeout(snapTimer);
+            var done = function () {
+                clearTimeout(snapTimer);
+                track.removeEventListener('scrollend', done);
+                root.classList.remove('is-snapping');
+            };
+            track.addEventListener('scrollend', done);
+            snapTimer = setTimeout(done, 800); // vangnet voor browsers zonder scrollend
         }
 
         // Klik onderdrukken direct na het slepen
@@ -111,9 +125,9 @@ document.addEventListener('DOMContentLoaded', function () {
             function end(e) {
                 if (!state || e.pointerId !== state.id) return;
                 if (state.moved) {
-                    root.classList.remove('is-dragging');
                     suppressNextClick(el);
-                    options.end(e.clientX - state.x);
+                    options.end(e.clientX - state.x); // eerst snappen, dan pas de native snap terug
+                    root.classList.remove('is-dragging');
                 }
                 state = null;
             }
@@ -173,8 +187,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         window.addEventListener('resize', update);
 
-        // Andere scripts (bijv. tijdlijn.js) kunnen zo een update opvragen
+        // Andere scripts (bijv. tijdlijn.js) kunnen zo een update opvragen,
+        // of na eigen sleepwerk laten snappen: detail = { direction: 1 | -1 }
         root.addEventListener('mk-slider:refresh', update);
+        root.addEventListener('mk-slider:snap', function (e) {
+            snapToSlide(e.detail && e.detail.direction ? e.detail.direction : 0);
+        });
         update();
     });
 });

@@ -62,6 +62,11 @@ $slider-viewport: 1560px;
         }
     }
 
+    // Na het slepen snapt slider.js zelf (met duwtje in de sleeprichting)
+    &.is-snapping &__track {
+        scroll-snap-type: none;
+    }
+
     // Tijdens het slepen (slides of blokje): geen snap, geen tekstselectie
     &.is-dragging &__track {
         cursor: grabbing;
