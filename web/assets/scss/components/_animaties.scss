@@ -28,17 +28,13 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    // HAAK TEKENT ZICH — bovenlijn + zijkanten van links naar rechts, daarna de pootjes
+    // HAAK TEKENT ZICH — vanuit het midden naar de zijkanten; aan het eind verschijnen
+    // de zijlijnen met de pootjes (die zitten aan de buitenkant)
     .js .mk-bracket {
         &::before,
         &::after {
-            clip-path: inset(0 100% 0 0);
+            clip-path: inset(0 50% 0 50%);
             transition: clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-
-        &::after {
-            transition-delay: 0.75s;
-            transition-duration: 0.35s;
         }
 
         &.is-zichtbaar::before,
