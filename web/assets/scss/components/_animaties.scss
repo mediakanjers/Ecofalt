@@ -83,7 +83,7 @@
 @media (prefers-reduced-motion: no-preference) {
     // Hero: startwaarde gelijk aan wat JS bovenaan de pagina zet (geen sprong bij laden)
     .js .mk-hero__media {
-        transform: scale(1.25);
+        transform: scale(1.1);
         will-change: transform;
     }
 

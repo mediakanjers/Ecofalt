@@ -1,7 +1,7 @@
 // Speelse animaties (CSS: components/_animaties.scss)
 // - Ecofalt-haak tekent zich en mengsel-cijfers ploppen in zodra ze in beeld komen (1x)
 // - Steentjes in de achtergrond bewegen langzamer mee dan de content (diepte)
-// - Hero: scroll-overgang (uitzoomen, tekst weg, donkerder, vlak wijkt terug als kaart)
+// - Hero: video/foto zoomt licht uit en blijft iets achter bij het naar beneden scrollen
 // - Foto's in projecten en kolommen bewegen een fractie langzamer dan de pagina
 // Bij "verminder beweging" doet dit niets: alles is dan direct zichtbaar en staat stil.
 document.addEventListener('DOMContentLoaded', function () {
@@ -28,33 +28,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // HERO — scroll-overgang naar de volgende sectie, zolang de hero in beeld is:
-    // media zoomt uit (1.25 -> 1) en blijft achter, tekst schuift sneller weg en fadet,
-    // de groene laag wordt donkerder en het vlak wijkt als kaart terug (smaller + ronde hoeken)
+    // HERO — media zoomt uit (1.1 -> 1) en zakt weg (25% van de scroll) zolang de hero in beeld is
     var heroStage = document.querySelector('.mk-hero__stage');
     var heroMedia = heroStage && heroStage.querySelector('.mk-hero__media');
-    var heroContent = heroStage && heroStage.querySelector('.mk-hero__content');
-    var heroOverlay = heroStage && heroStage.querySelector('.mk-hero__overlay');
-    var overlayBasis = heroOverlay ? parseFloat(getComputedStyle(heroOverlay).opacity) || 0.7 : 0.7;
 
     function beweegHero() {
-        if (!heroStage) return;
+        if (!heroMedia) return;
         var y = window.scrollY;
         var hoogte = heroStage.offsetHeight || 1;
         if (y > hoogte + heroStage.offsetTop) return; // uit beeld: niets te doen
-        var p = Math.min(1, Math.max(0, y / hoogte));
-
-        if (heroMedia) {
-            heroMedia.style.transform = 'translate3d(0, ' + (y * 0.4).toFixed(1) + 'px, 0) scale(' + (1.25 - 0.25 * p).toFixed(4) + ')';
-        }
-        if (heroContent) {
-            heroContent.style.transform = 'translate3d(0, ' + (-y * 0.2).toFixed(1) + 'px, 0)';
-            heroContent.style.opacity = Math.max(0, 1 - p * 1.6).toFixed(3);
-        }
-        if (heroOverlay) {
-            heroOverlay.style.opacity = (overlayBasis + (1 - overlayBasis) * p * 0.7).toFixed(3);
-        }
-        heroStage.style.clipPath = 'inset(0 ' + (p * 3).toFixed(2) + '% 0 ' + (p * 3).toFixed(2) + '% round 0 0 ' + (p * 40).toFixed(1) + 'px ' + (p * 40).toFixed(1) + 'px)';
+        var p = Math.min(1, y / hoogte);
+        heroMedia.style.transform = 'translate3d(0, ' + (y * 0.25).toFixed(1) + 'px, 0) scale(' + (1.1 - 0.1 * p).toFixed(4) + ')';
     }
 
     // FOTO'S — verschuiving (max ±16px) naar de afstand tot het midden van het scherm.
