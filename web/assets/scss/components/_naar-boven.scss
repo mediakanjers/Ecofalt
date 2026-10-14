@@ -1,7 +1,7 @@
 // =============================================================================
 // Naar boven (footer.php + assets/js/naar-boven.js)
-// Ronde witte knop rechtsonder met groen pijltje en een groene ring die zich
-// vult met de scrollvoortgang (--mk-voortgang 0-100). Hover: groen, pijl wipt omhoog.
+// Ronde witte knop rechtsonder met groen pijltje. Hover: groen, pijl wipt omhoog.
+// (De scrollvoortgang toont het weggetje onder de header.)
 // =============================================================================
 
 .mk-naar-boven {
@@ -42,43 +42,6 @@
     &:focus-visible {
         background-color: $color-primary;
         color: $color-white;
-    }
-
-    // Voortgangsring rondom de knop
-    &__ring {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        transform: rotate(-90deg); // start bovenaan
-    }
-
-    &__baan,
-    &__voortgang {
-        fill: none;
-        stroke-width: 3;
-    }
-
-    &__baan {
-        stroke: $color-light-grey;
-    }
-
-    &__voortgang {
-        stroke: $color-primary;
-        stroke-dasharray: 100;
-        stroke-dashoffset: calc(100 - var(--mk-voortgang, 0));
-        stroke-linecap: round;
-        transition: stroke-dashoffset 0.15s linear;
-    }
-
-    &:hover &__baan,
-    &:focus-visible &__baan {
-        stroke: rgba($color-white, 0.35);
-    }
-
-    &:hover &__voortgang,
-    &:focus-visible &__voortgang {
-        stroke: $color-white;
     }
 
     // Pijltje omhoog (chevron-down omgedraaid)

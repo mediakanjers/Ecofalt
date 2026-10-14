@@ -15,10 +15,6 @@
 
 		<!-- Naar boven (assets/js/naar-boven.js) -->
 		<button type="button" class="mk-naar-boven" aria-label="<?php esc_attr_e('Terug naar boven', 'mk'); ?>">
-			<svg class="mk-naar-boven__ring" viewBox="0 0 56 56" aria-hidden="true" focusable="false">
-				<circle class="mk-naar-boven__baan" cx="28" cy="28" r="26" />
-				<circle class="mk-naar-boven__voortgang" cx="28" cy="28" r="26" pathLength="100" />
-			</svg>
 			<span class="mk-naar-boven__pijl" aria-hidden="true"></span>
 		</button>
 

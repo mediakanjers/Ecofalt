@@ -1,5 +1,5 @@
 // Naar boven — knop rechtsonder, verschijnt na ±1 scherm scrollen.
-// De groene ring vult zich met de scrollvoortgang (CSS-variabele --mk-voortgang, 0-100).
+// (De scrollvoortgang toont het weggetje onder de header.)
 document.addEventListener('DOMContentLoaded', function () {
     var knop = document.querySelector('.mk-naar-boven');
     if (!knop) return;
@@ -7,11 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var ticking = false;
 
     function update() {
-        var max = document.documentElement.scrollHeight - window.innerHeight;
         var y = window.scrollY;
-        var voortgang = max > 0 ? Math.min(100, Math.max(0, (y / max) * 100)) : 0;
-
-        knop.style.setProperty('--mk-voortgang', voortgang.toFixed(1));
         knop.classList.toggle('is-zichtbaar', y > window.innerHeight * 0.8);
         ticking = false;
     }
