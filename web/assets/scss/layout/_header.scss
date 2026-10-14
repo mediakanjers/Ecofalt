@@ -119,3 +119,81 @@
         background-color: $color-dark-green;
     }
 }
+
+// =============================================================================
+// Weggetje onder de header met de mini-wals (assets/js/header-weg.js)
+// Grijze weg met witte middenstreep; de wals staat er met zijn wielen op en
+// rijdt mee met de scrollvoortgang. Verborgen op korte pagina's ([hidden]).
+// =============================================================================
+
+.mk-header__weg {
+    --mk-weg-hoogte: 6px;
+    --mk-wals-breedte: 28px;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: var(--mk-weg-hoogte);
+    background:
+        linear-gradient(90deg, rgba($color-white, 0.85) 50%, transparent 50%) 0 50% / 22px 2px repeat-x,
+        $color-grey;
+    pointer-events: none;
+
+    @include mq(lg) {
+        --mk-weg-hoogte: 8px;
+        --mk-wals-breedte: 34px;
+    }
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+.mk-header__wals {
+    position: absolute;
+    left: 0;
+    bottom: 1px; // wielen op de weg
+    width: var(--mk-wals-breedte);
+    transform: translateX(var(--mk-wals-x, 0px));
+    transition: transform 0.12s linear;
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    // Terug scrollen: omkeren
+    &.is-reversed img {
+        transform: scaleX(-1);
+    }
+
+    // Trillen tijdens het rijden (combinatie met omgekeerd: de schaal blijft)
+    &.is-driving img {
+        animation: mk-header-wals-tril 0.14s linear infinite;
+    }
+
+    &.is-driving.is-reversed img {
+        animation-name: mk-header-wals-tril-terug;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+
+        img {
+            transition: none;
+        }
+    }
+}
+
+@keyframes mk-header-wals-tril {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-1px); }
+}
+
+@keyframes mk-header-wals-tril-terug {
+    0%, 100% { transform: scaleX(-1) translateY(0); }
+    50%      { transform: scaleX(-1) translateY(-1px); }
+}

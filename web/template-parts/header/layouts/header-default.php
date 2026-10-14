@@ -17,4 +17,11 @@
             <span class="mk-header__toggle-line"></span>
         </button>
     </div>
+
+    <?php // Weggetje onder de header: de mini-wals rijdt mee met de scrollvoortgang (assets/js/header-weg.js) ?>
+    <div class="mk-header__weg" aria-hidden="true">
+        <div class="mk-header__wals">
+            <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/tijdlijn-machine.svg'); ?>" alt="" width="34" height="21" draggable="false">
+        </div>
+    </div>
 </header>
